@@ -1,8 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chicoco — Chicago-Style Roasted Chicken · Permian Basin, TX</title>
+<meta name="description" content="Chicago-style roasted chicken by the pound, plus plates and sides — cooked right on the trailer. Parked around Odessa–Midland, Texas.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Chicoco — Roasted Chicken by the Pound">
+<meta property="og:description" content="A full day's food in one stop from the rig. Roasted chicken, rice, milanesa and sides — Odessa–Midland, TX.">
+<meta property="og:image" content="assets/chicoco-logo.png">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/chicoco-logo.png">
 <script src="./support.js"></script>
 </head>
 <body>
@@ -15,10 +23,33 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="./image-slot.js"></script>
 <style>
+:root{--ow-red:#D63A31;--ow-ink:#242424;--ow-cream:#F2EDE2;--ow-shadow:#F2DEDC}
 *{box-sizing:border-box}
-body{margin:0;background:#FFFFFF;font-family:'Work Sans',Arial,sans-serif;-webkit-font-smoothing:antialiased;color:#242424}
+html{scroll-behavior:smooth}
+body{margin:0;background:#FFFFFF;font-family:'Work Sans',Arial,sans-serif;-webkit-font-smoothing:antialiased;color:var(--ow-ink)}
 img{display:block;max-width:100%}
 a{color:inherit}
+
+/* keyboard focus */
+a:focus-visible,button:focus-visible{outline:3px solid var(--ow-red);outline-offset:3px;border-radius:4px}
+
+/* nav links — red underline on hover */
+.ow-nav{font:700 12.5px 'Space Mono',monospace;letter-spacing:1px;color:var(--ow-ink);text-decoration:none;padding:2px 0;border-bottom:2px solid transparent;transition:border-color .15s ease}
+.ow-nav:hover{border-bottom-color:var(--ow-red)}
+
+/* primary button — offset shadow presses on click */
+.ow-btn{display:inline-block;font:700 clamp(13px,1.4vw,15px) 'Space Mono',monospace;letter-spacing:1px;color:#fff;background:var(--ow-red);padding:15px 24px;border-radius:9px;text-decoration:none;box-shadow:4px 4px 0 var(--ow-ink);transition:transform .12s ease,box-shadow .12s ease}
+.ow-btn:hover{transform:translate(-1px,-1px);box-shadow:6px 6px 0 var(--ow-ink)}
+.ow-btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ow-ink)}
+
+/* social buttons — invert on hover */
+.ow-social{flex:1 1 120px;text-align:center;font:700 12px 'Space Mono',monospace;letter-spacing:1px;color:var(--ow-ink);background:#fff;border:2.5px solid var(--ow-ink);padding:14px 8px;border-radius:10px;box-shadow:3px 3px 0 var(--ow-ink);text-decoration:none;transition:transform .12s ease,box-shadow .12s ease,background .15s ease,color .15s ease}
+.ow-social:hover{background:var(--ow-ink);color:#fff;transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--ow-ink)}
+.ow-social:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ow-ink)}
+
+/* owner login */
+.ow-owner{display:inline-block;font:700 10px 'Space Mono',monospace;letter-spacing:1px;color:rgba(255,255,255,0.55);text-decoration:none;border:1px solid rgba(255,255,255,0.22);padding:6px 11px;border-radius:6px;transition:color .15s ease,border-color .15s ease}
+.ow-owner:hover{color:#fff;border-color:rgba(255,255,255,0.55)}
 </style>
 </helmet>
 
@@ -32,9 +63,9 @@ a{color:inherit}
   <div style="max-width:1080px;margin:0 auto;padding:12px clamp(16px,4vw,40px);display:flex;align-items:center;gap:14px;flex-wrap:wrap">
     <img src="assets/chicoco-logo.png" alt="Chicoco" style="width:50px;height:auto;flex:none">
     <nav style="display:flex;gap:clamp(12px,2.2vw,28px);flex-wrap:wrap;flex:1;min-width:0;margin-left:6px">
-      <a href="#menu" style="font:700 12.5px 'Space Mono',monospace;letter-spacing:1px;color:#242424;text-decoration:none">MENU</a>
-      <a href="#find" style="font:700 12.5px 'Space Mono',monospace;letter-spacing:1px;color:#242424;text-decoration:none">FIND US</a>
-      <a href="#hours" style="font:700 12.5px 'Space Mono',monospace;letter-spacing:1px;color:#242424;text-decoration:none">HOURS</a>
+      <a href="#menu" class="ow-nav">MENU</a>
+      <a href="#find" class="ow-nav">FIND US</a>
+      <a href="#hours" class="ow-nav">HOURS</a>
     </nav>
     <div style="flex:none;font:700 12.5px 'Space Mono',monospace;letter-spacing:0.5px;color:#242424">{{ phone }}</div>
   </div>
@@ -48,7 +79,7 @@ a{color:inherit}
       <h1 style="margin:0 0 18px;font:400 clamp(38px,5.4vw,74px)/1.02 'Lilita One',Georgia,sans-serif;color:#242424;text-wrap:balance">A FULL DAY'S FOOD. <span style="color:#D63A31">ONE STOP FROM THE RIG.</span></h1>
       <p style="margin:0 0 20px;font:400 clamp(15px,1.5vw,18px)/1.55 'Work Sans';color:#555;max-width:500px">Roasted chicken by the pound — enough to get you through the shift and the drive home. Rice, milanesa, croquettes and sides, all from one window.</p>
       <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap">
-        <a href="#menu" style="font:700 clamp(13px,1.4vw,15px) 'Space Mono',monospace;letter-spacing:1px;color:#fff;background:#D63A31;padding:15px 24px;border-radius:9px;text-decoration:none;box-shadow:4px 4px 0 #242424">SEE THE BOARD</a>
+        <a href="#menu" class="ow-btn">SEE THE BOARD</a>
         <div style="transform:rotate(-5deg);font:700 clamp(11px,1.2vw,13px) 'Space Mono',monospace;letter-spacing:1.5px;color:#D63A31;border:3px solid #D63A31;border-radius:9px;padding:9px 15px">CHICKEN BY THE POUND</div>
       </div>
     </div>
@@ -156,13 +187,13 @@ a{color:inherit}
 </section>
 
 <!-- ============ THE DEAL ============ -->
-<section style="background:#242424">
+<section style="background:var(--ow-cream);border-top:2px dashed #E4DED3;border-bottom:2px dashed #E4DED3">
   <div style="max-width:1080px;margin:0 auto;padding:clamp(40px,5vw,76px) clamp(20px,5vw,48px)">
-    <h2 style="margin:0 0 clamp(20px,3vw,36px);font:400 clamp(26px,3.6vw,44px) 'Lilita One',Georgia,sans-serif;color:#fff;text-align:center">THE DEAL</h2>
+    <h2 style="margin:0 0 clamp(20px,3vw,36px);font:400 clamp(26px,3.6vw,44px) 'Lilita One',Georgia,sans-serif;color:var(--ow-ink);text-align:center">THE DEAL</h2>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:clamp(20px,2.6vw,36px);text-align:center">
-      <div><svg width="14" height="21" viewBox="0 0 12 18" style="margin-bottom:12px"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#D63A31"></path></svg><div style="font:700 clamp(15px,1.6vw,18px)/1.35 'Work Sans';color:#fff">A pound goes all day</div><div style="font:400 clamp(12px,1.2vw,13.5px)/1.5 'Work Sans';color:rgba(255,255,255,0.6);margin-top:6px">Breakfast, lunch, and the drive back — out of one box.</div></div>
-      <div><svg width="14" height="21" viewBox="0 0 12 18" style="margin-bottom:12px"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#D63A31"></path></svg><div style="font:700 clamp(15px,1.6vw,18px)/1.35 'Work Sans';color:#fff">One window, no detours</div><div style="font:400 clamp(12px,1.2vw,13.5px)/1.5 'Work Sans';color:rgba(255,255,255,0.6);margin-top:6px">Chicken, rice, sides, and drinks in a single stop.</div></div>
-      <div><svg width="14" height="21" viewBox="0 0 12 18" style="margin-bottom:12px"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#D63A31"></path></svg><div style="font:700 clamp(15px,1.6vw,18px)/1.35 'Work Sans';color:#fff">Heavy portions, light ticket</div><div style="font:400 clamp(12px,1.2vw,13.5px)/1.5 'Work Sans';color:rgba(255,255,255,0.6);margin-top:6px">A full day of food for less than a sit-down lunch.</div></div>
+      <div><svg width="14" height="21" viewBox="0 0 12 18" style="margin-bottom:12px"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#D63A31"></path></svg><div style="font:700 clamp(15px,1.6vw,18px)/1.35 'Work Sans';color:var(--ow-ink)">A pound goes all day</div><div style="font:400 clamp(12px,1.2vw,13.5px)/1.5 'Work Sans';color:#6B6B6B;margin-top:6px">Breakfast, lunch, and the drive back — out of one box.</div></div>
+      <div><svg width="14" height="21" viewBox="0 0 12 18" style="margin-bottom:12px"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#D63A31"></path></svg><div style="font:700 clamp(15px,1.6vw,18px)/1.35 'Work Sans';color:var(--ow-ink)">One window, no detours</div><div style="font:400 clamp(12px,1.2vw,13.5px)/1.5 'Work Sans';color:#6B6B6B;margin-top:6px">Chicken, rice, sides, and drinks in a single stop.</div></div>
+      <div><svg width="14" height="21" viewBox="0 0 12 18" style="margin-bottom:12px"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#D63A31"></path></svg><div style="font:700 clamp(15px,1.6vw,18px)/1.35 'Work Sans';color:var(--ow-ink)">Heavy portions, light ticket</div><div style="font:400 clamp(12px,1.2vw,13.5px)/1.5 'Work Sans';color:#6B6B6B;margin-top:6px">A full day of food for less than a sit-down lunch.</div></div>
     </div>
   </div>
 </section>
@@ -181,9 +212,9 @@ a{color:inherit}
       <h2 style="margin:0 0 14px;font:400 clamp(26px,3.4vw,44px) 'Lilita One',Georgia,sans-serif;color:#242424">FOLLOW</h2>
       <!-- SOCIAL LINKS TBD: add real profile URLs -->
       <div style="display:flex;gap:10px;flex-wrap:wrap">
-        <a href="#" style="flex:1 1 120px;text-align:center;font:700 12px 'Space Mono',monospace;letter-spacing:1px;color:#242424;background:#fff;border:2.5px solid #242424;padding:14px 8px;border-radius:10px;box-shadow:3px 3px 0 #242424;text-decoration:none">FACEBOOK</a>
-        <a href="#" style="flex:1 1 120px;text-align:center;font:700 12px 'Space Mono',monospace;letter-spacing:1px;color:#242424;background:#fff;border:2.5px solid #242424;padding:14px 8px;border-radius:10px;box-shadow:3px 3px 0 #242424;text-decoration:none">TIKTOK</a>
-        <a href="#" style="flex:1 1 120px;text-align:center;font:700 12px 'Space Mono',monospace;letter-spacing:1px;color:#242424;background:#fff;border:2.5px solid #242424;padding:14px 8px;border-radius:10px;box-shadow:3px 3px 0 #242424;text-decoration:none">INSTAGRAM</a>
+        <a href="#" class="ow-social">FACEBOOK</a>
+        <a href="#" class="ow-social">TIKTOK</a>
+        <a href="#" class="ow-social">INSTAGRAM</a>
       </div>
     </div>
   </div>
@@ -199,7 +230,7 @@ a{color:inherit}
     </div>
     <div style="font:700 clamp(13px,1.4vw,16px) 'Space Mono',monospace;color:#fff;margin-bottom:8px">{{ phone }}</div>
     <p style="margin:0 0 10px;font:400 clamp(12px,1.3vw,14px)/1.5 'Work Sans';color:rgba(255,255,255,0.6)">Roasted chicken &amp; plates by the pound — Odessa–Midland, Texas.</p>
-    <a href="./Chicoco%20-%20Admin.dc.html" style="display:inline-block;margin:0 0 12px;font:700 10px 'Space Mono',monospace;letter-spacing:1px;color:rgba(255,255,255,0.55);text-decoration:none;border:1px solid rgba(255,255,255,0.22);padding:6px 11px;border-radius:6px">OWNER LOGIN ↗</a>
+    <a href="./Chicoco%20-%20Admin.dc.html" class="ow-owner" style="margin:0 0 12px">OWNER LOGIN ↗</a>
     <div style="font:400 10px 'Space Mono',monospace;letter-spacing:1px;color:rgba(255,255,255,0.4)">© 2026 CHICOCO · MON–FRI · CLOSED SUNDAY</div>
   </div>
   <div style="height:9px;background:#D63A31"></div>

@@ -1,8 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chicoco — Chicago-Style Roasted Chicken · Permian Basin, TX</title>
+<meta name="description" content="Chicago-style roasted chicken by the pound, plus plates and sides — cooked right on the trailer. Parked around Odessa–Midland, Texas.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Chicoco — Roasted Chicken by the Pound">
+<meta property="og:description" content="A full day's food in one stop from the rig. Roasted chicken, rice, milanesa and sides — Odessa–Midland, TX.">
+<meta property="og:image" content="assets/chicoco-logo.png">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/chicoco-logo-white.png">
 <script src="./support.js"></script>
 </head>
 <body>
@@ -15,11 +23,41 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="./image-slot.js"></script>
 <style>
+:root{--tp-red:#C4443C;--tp-red-hot:#D63A31;--tp-ink:#242424;--tp-cream:#F2EDE2}
 *{box-sizing:border-box}
-body{margin:0;background:#C4443C;font-family:'Archivo',Arial,sans-serif;-webkit-font-smoothing:antialiased;color:#242424}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--tp-red);font-family:'Archivo',Arial,sans-serif;-webkit-font-smoothing:antialiased;color:var(--tp-ink)}
 img{display:block;max-width:100%}
 a{color:inherit}
 .diamond{position:absolute;pointer-events:none}
+
+/* keyboard focus — visible on both red and dark surfaces */
+a:focus-visible,button:focus-visible{outline:3px solid #fff;outline-offset:3px;border-radius:4px}
+
+/* nav links */
+.tp-nav{font:700 13px 'Archivo';letter-spacing:1px;color:#fff;text-decoration:none;padding:2px 0;border-bottom:2px solid transparent;transition:border-color .15s ease}
+.tp-nav:hover{border-bottom-color:#fff}
+
+/* white pill CTA in the header */
+.tp-cta{font:700 12.5px 'Archivo';letter-spacing:1px;color:var(--tp-red);background:#fff;padding:10px 15px;border-radius:8px;text-decoration:none;box-shadow:3px 3px 0 rgba(36,36,36,0.3);transition:transform .12s ease,box-shadow .12s ease}
+.tp-cta:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 rgba(36,36,36,0.34)}
+.tp-cta:active{transform:translate(2px,2px);box-shadow:1px 1px 0 rgba(36,36,36,0.3)}
+
+/* hero buttons — the offset shadow physically presses on click */
+.tp-btn{display:inline-block;font:700 clamp(16px,1.7vw,20px)/1 'Passion One',Impact,sans-serif;letter-spacing:1px;padding:16px 26px;border-radius:8px;text-decoration:none;box-shadow:5px 5px 0 rgba(36,36,36,0.35);transition:transform .12s ease,box-shadow .12s ease}
+.tp-btn:hover{transform:translate(-1px,-1px);box-shadow:7px 7px 0 rgba(36,36,36,0.4)}
+.tp-btn:active{transform:translate(3px,3px);box-shadow:2px 2px 0 rgba(36,36,36,0.3)}
+.tp-btn--light{color:var(--tp-red);background:#fff}
+.tp-btn--dark{color:#fff;background:var(--tp-ink)}
+
+/* social buttons — fill on hover */
+.tp-social{text-align:center;font:700 clamp(16px,1.7vw,20px)/1 'Passion One',Impact,sans-serif;letter-spacing:1.5px;color:#fff;border:2.5px solid #fff;padding:15px 12px;border-radius:8px;box-shadow:4px 4px 0 rgba(36,36,36,0.3);text-decoration:none;transition:transform .12s ease,box-shadow .12s ease,background .15s ease,color .15s ease}
+.tp-social:hover{background:#fff;color:var(--tp-red);transform:translate(-1px,-1px);box-shadow:6px 6px 0 rgba(36,36,36,0.34)}
+.tp-social:active{transform:translate(2px,2px);box-shadow:2px 2px 0 rgba(36,36,36,0.3)}
+
+/* owner login */
+.tp-owner{display:inline-block;font:700 10px 'Space Mono',monospace;letter-spacing:1px;color:rgba(255,255,255,0.6);text-decoration:none;border:1px solid rgba(255,255,255,0.25);padding:6px 10px;border-radius:6px;transition:color .15s ease,border-color .15s ease}
+.tp-owner:hover{color:#fff;border-color:rgba(255,255,255,0.6)}
 </style>
 </helmet>
 
@@ -30,12 +68,12 @@ a{color:inherit}
   <div style="max-width:1200px;margin:0 auto;padding:11px clamp(16px,4vw,40px);display:flex;align-items:center;gap:14px;flex-wrap:wrap">
     <img src="assets/chicoco-logo-white.png" alt="Chicoco" style="width:50px;height:auto;flex:none">
     <nav style="display:flex;gap:clamp(12px,2.2vw,28px);flex-wrap:wrap;flex:1;min-width:0;margin-left:6px">
-      <a href="#menu" style="font:700 13px 'Archivo';letter-spacing:1px;color:#fff;text-decoration:none">MENU</a>
-      <a href="#find" style="font:700 13px 'Archivo';letter-spacing:1px;color:#fff;text-decoration:none">FIND US</a>
-      <a href="#food" style="font:700 13px 'Archivo';letter-spacing:1px;color:#fff;text-decoration:none">FOOD</a>
-      <a href="#hours" style="font:700 13px 'Archivo';letter-spacing:1px;color:#fff;text-decoration:none">HOURS</a>
+      <a href="#menu" class="tp-nav">MENU</a>
+      <a href="#find" class="tp-nav">FIND US</a>
+      <a href="#food" class="tp-nav">FOOD</a>
+      <a href="#hours" class="tp-nav">HOURS</a>
     </nav>
-    <a href="#find" style="flex:none;font:700 12.5px 'Archivo';letter-spacing:1px;color:#C4443C;background:#fff;padding:10px 15px;border-radius:8px;text-decoration:none;box-shadow:3px 3px 0 rgba(36,36,36,0.3)">TODAY'S SPOT</a>
+    <a href="#find" class="tp-cta" style="flex:none">TODAY'S SPOT</a>
   </div>
 </header>
 
@@ -52,8 +90,8 @@ a{color:inherit}
       <h1 style="margin:0 0 18px;font:900 clamp(42px,6.6vw,88px)/0.94 'Passion One',Impact,sans-serif;color:#fff;letter-spacing:0.5px;text-wrap:balance">GRAB THE WHOLE DAY'S FOOD IN ONE STOP.</h1>
       <p style="margin:0 0 26px;font:400 clamp(15px,1.55vw,19px)/1.5 'Archivo';color:rgba(255,255,255,0.92);max-width:520px">Chicago-style roasted chicken by the pound, plus a board of plates — cooked right on the trailer, on your way to the rig.</p>
       <div style="display:flex;gap:12px;flex-wrap:wrap">
-        <a href="#menu" style="font:700 clamp(16px,1.7vw,20px)/1 'Passion One',Impact,sans-serif;letter-spacing:1px;color:#C4443C;background:#fff;padding:16px 26px;border-radius:8px;text-decoration:none;box-shadow:5px 5px 0 rgba(36,36,36,0.35)">SEE THE MENU</a>
-        <a href="#find" style="font:700 clamp(16px,1.7vw,20px)/1 'Passion One',Impact,sans-serif;letter-spacing:1px;color:#fff;background:#242424;padding:16px 26px;border-radius:8px;text-decoration:none;box-shadow:5px 5px 0 rgba(36,36,36,0.35)">FIND THE TRUCK</a>
+        <a href="#menu" class="tp-btn tp-btn--light">SEE THE MENU</a>
+        <a href="#find" class="tp-btn tp-btn--dark">FIND THE TRUCK</a>
       </div>
     </div>
     <div style="flex:1 1 380px;min-width:0">
@@ -123,19 +161,19 @@ a{color:inherit}
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:clamp(12px,1.6vw,20px);margin-top:clamp(14px,1.8vw,22px)">
       <div>
         <image-slot id="food-rice" src="https://loremflickr.com/500/420/fried,rice?lock=11" shape="rounded" radius="12" placeholder="Fried rice" style="width:100%;height:clamp(150px,15vw,210px);display:block"></image-slot>
-        <div style="font:700 10px 'Space Mono',monospace;letter-spacing:0.5px;color:#6B6B6B;text-align:center;margin-top:9px">FRIED RICE</div>
+        <div style="font:700 10px 'Space Mono',monospace;letter-spacing:0.5px;color:#4A443C;text-align:center;margin-top:9px">FRIED RICE</div>
       </div>
       <div>
         <image-slot id="food-milanesa" src="https://loremflickr.com/520/440/milanesa?lock=2" shape="rounded" radius="12" placeholder="Milanesa" style="width:100%;height:clamp(150px,15vw,210px);display:block"></image-slot>
-        <div style="font:700 10px 'Space Mono',monospace;letter-spacing:0.5px;color:#6B6B6B;text-align:center;margin-top:9px">MILANESA</div>
+        <div style="font:700 10px 'Space Mono',monospace;letter-spacing:0.5px;color:#4A443C;text-align:center;margin-top:9px">MILANESA</div>
       </div>
       <div>
         <image-slot id="food-croq" src="https://loremflickr.com/520/440/croquettes,fried?lock=6" shape="rounded" radius="12" placeholder="Croquettes" style="width:100%;height:clamp(150px,15vw,210px);display:block"></image-slot>
-        <div style="font:700 10px 'Space Mono',monospace;letter-spacing:0.5px;color:#6B6B6B;text-align:center;margin-top:9px">CROQUETTES</div>
+        <div style="font:700 10px 'Space Mono',monospace;letter-spacing:0.5px;color:#4A443C;text-align:center;margin-top:9px">CROQUETTES</div>
       </div>
       <div>
         <image-slot id="food-fries" src="https://images.pexels.com/photos/4109234/pexels-photo-4109234.jpeg?auto=compress&cs=tinysrgb&w=600" shape="rounded" radius="12" placeholder="Fries" style="width:100%;height:clamp(150px,15vw,210px);display:block"></image-slot>
-        <div style="font:700 10px 'Space Mono',monospace;letter-spacing:0.5px;color:#6B6B6B;text-align:center;margin-top:9px">FRIES</div>
+        <div style="font:700 10px 'Space Mono',monospace;letter-spacing:0.5px;color:#4A443C;text-align:center;margin-top:9px">FRIES</div>
       </div>
     </div>
   </div>
@@ -217,9 +255,9 @@ a{color:inherit}
       <h2 style="margin:0 0 16px;font:900 clamp(28px,3.6vw,48px)/1 'Passion One',Impact,sans-serif;color:#fff;letter-spacing:1px">FOLLOW THE TRUCK</h2>
       <!-- SOCIAL LINKS TBD: add real profile URLs -->
       <div style="display:flex;flex-direction:column;gap:11px">
-        <a href="#" style="text-align:center;font:700 clamp(16px,1.7vw,20px)/1 'Passion One',Impact,sans-serif;letter-spacing:1.5px;color:#fff;border:2.5px solid #fff;padding:15px 12px;border-radius:8px;box-shadow:4px 4px 0 rgba(36,36,36,0.3);text-decoration:none">FACEBOOK</a>
-        <a href="#" style="text-align:center;font:700 clamp(16px,1.7vw,20px)/1 'Passion One',Impact,sans-serif;letter-spacing:1.5px;color:#fff;border:2.5px solid #fff;padding:15px 12px;border-radius:8px;box-shadow:4px 4px 0 rgba(36,36,36,0.3);text-decoration:none">TIKTOK</a>
-        <a href="#" style="text-align:center;font:700 clamp(16px,1.7vw,20px)/1 'Passion One',Impact,sans-serif;letter-spacing:1.5px;color:#fff;border:2.5px solid #fff;padding:15px 12px;border-radius:8px;box-shadow:4px 4px 0 rgba(36,36,36,0.3);text-decoration:none">INSTAGRAM</a>
+        <a href="#" class="tp-social">FACEBOOK</a>
+        <a href="#" class="tp-social">TIKTOK</a>
+        <a href="#" class="tp-social">INSTAGRAM</a>
       </div>
     </div>
   </div>
@@ -235,7 +273,7 @@ a{color:inherit}
     <div style="flex:none;text-align:right">
       <div style="font:700 clamp(13px,1.4vw,16px) 'Space Mono',monospace;color:#fff;margin-bottom:6px">{{ phone }}</div>
       <div style="font:400 10px 'Space Mono',monospace;letter-spacing:1px;color:rgba(255,255,255,0.45)">MON–FRI · CLOSED SUNDAY</div>
-      <a href="./Chicoco%20-%20Admin.dc.html" style="display:inline-block;margin-top:14px;font:700 10px 'Space Mono',monospace;letter-spacing:1px;color:rgba(255,255,255,0.6);text-decoration:none;border:1px solid rgba(255,255,255,0.25);padding:6px 10px;border-radius:6px">OWNER LOGIN ↗</a>
+      <a href="./Chicoco%20-%20Admin.dc.html" class="tp-owner" style="margin-top:14px">OWNER LOGIN ↗</a>
       <div style="font:400 10px 'Space Mono',monospace;letter-spacing:1px;color:rgba(255,255,255,0.35);margin-top:12px">© 2026 CHICOCO</div>
     </div>
   </div>
