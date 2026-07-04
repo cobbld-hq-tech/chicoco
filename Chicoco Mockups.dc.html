@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&amp;family=Archivo:wght@400;500;600;700&amp;family=Baloo+2:wght@700;800&amp;family=Barlow:wght@400;500;600;700&amp;family=Lilita+One&amp;family=Passion+One:wght@700;900&amp;family=Playfair+Display:wght@800&amp;family=Space+Mono:wght@400;700&amp;family=Work+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+body{margin:0;background:#f0eee9;font-family:system-ui,sans-serif}
+.dv-turn{padding:40px 44px 32px;border-bottom:1px solid rgba(0,0,0,.08);scroll-margin-top:16px}
+.dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 8px}
+.dv-tid{font:600 10px ui-monospace,Menlo,monospace;padding:3px 7px;background:#1a1a1a;color:#fff;border-radius:4px;text-decoration:none}
+.dv-tname{font:600 13px/1.2 system-ui,sans-serif;color:#1a1a1a}
+.dv-opts{display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start}
+.dv-opt{flex:none;display:flex;flex-direction:column;gap:9px;scroll-margin-top:16px}
+.dv-oid{font:600 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:rgba(0,0,0,.08);color:#1a1a1a;border-radius:5px;text-decoration:none}
+.dv-olabel{display:flex;align-items:baseline;gap:8px;font:400 11px/1.3 system-ui,sans-serif;color:rgba(0,0,0,.55)}
+.dv-card{max-width:100%;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.06);overflow:hidden}
+.dv-opt:target .dv-oid{background:#2a78d6;color:#fff}
+.dv-next{margin:22px 0 0;font:12px/1.5 system-ui,sans-serif;color:rgba(0,0,0,.5)}
+</style>
+</helmet>
+
+<section class="dv-turn" id="t1">
+<div class="dv-thd"><a class="dv-tid" href="#t1">1</a><span class="dv-tname">Chicoco — three directions, mobile-first (390px)</span></div>
+<p style="margin:0 0 20px;font:400 11.5px/1.5 system-ui,sans-serif;color:rgba(0,0,0,.5);max-width:640px">Prices, hours, and plates are stand-ins (TBD in code) — only the roasted chicken is sold by the pound / half pound; everything else is one plate price. <a class="dv-oid" href="#1b">1b</a> and <a class="dv-oid" href="#1c">1c</a> carry a live map — the truck's pin is read-only for visitors and only editable in owner mode (the client's login). <a class="dv-oid" href="#1b">1b</a> also has dedicated food-photo slots. Dashed boxes are slots: drop your real truck &amp; food photos on them. The "where we are today" line is a tweakable field.</p>
+<div class="dv-opts">
+
+<!-- ============ OPTION 1A — NIGHT SHIFT ============ -->
+<div class="dv-opt" id="1a" data-screen-label="1a Night Shift">
+<div class="dv-olabel"><a class="dv-oid" href="#1a">1a</a>Night Shift — charcoal diner board, Alfa Slab One + Barlow</div>
+<div class="dv-card" style="width:390px;background:#242424">
+
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 18px;border-bottom:1px solid rgba(255,255,255,0.12)">
+    <img src="assets/chicoco-logo.png" alt="Chicoco" style="width:54px;height:auto;display:block">
+    <div style="font:700 10.5px 'Space Mono',Menlo,monospace;letter-spacing:1.5px;color:#FFFFFF;background:#D63A31;padding:11px 14px;border-radius:999px">TODAY'S SPOT ▾</div>
+  </div>
+
+  <div style="position:relative;padding:30px 22px 26px">
+    <svg width="18" height="27" viewBox="0 0 12 18" style="position:absolute;top:16px;right:26px;transform:rotate(15deg);opacity:0.18;pointer-events:none"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#FFFFFF"></path></svg>
+    <svg width="10" height="15" viewBox="0 0 12 18" style="position:absolute;top:64px;right:66px;transform:rotate(-20deg);opacity:0.12;pointer-events:none"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#FFFFFF"></path></svg>
+    <svg width="12" height="18" viewBox="0 0 12 18" style="position:absolute;top:26px;left:190px;transform:rotate(32deg);opacity:0.15;pointer-events:none"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#FFFFFF"></path></svg>
+    <svg width="14" height="21" viewBox="0 0 12 18" style="position:absolute;bottom:98px;right:30px;transform:rotate(-12deg);opacity:0.14;pointer-events:none"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#FFFFFF"></path></svg>
+    <svg width="9" height="14" viewBox="0 0 12 18" style="position:absolute;top:128px;right:16px;transform:rotate(40deg);opacity:0.2;pointer-events:none"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#FFFFFF"></path></svg>
+    <div style="font:700 10px 'Space Mono',Menlo,monospace;letter-spacing:2.5px;color:rgba(255,255,255,0.6);margin-bottom:14px">CHICAGO-STYLE · PERMIAN BASIN</div>
+    <h1 style="margin:0 0 14px;font:400 38px/1.08 'Alfa Slab One',Georgia,serif;color:#FFFFFF;text-wrap:pretty">ONE STOP. <span style="color:#D63A31">A FULL DAY'S FOOD.</span> ON YOUR WAY TO THE RIG.</h1>
+    <p style="margin:0 0 20px;font:400 15.5px/1.5 'Barlow','Helvetica Neue',sans-serif;color:rgba(255,255,255,0.75)">Roasted chicken by the pound, plus a board of plates, cooked right on the trailer in Odessa–Midland.</p>
+    <div style="display:flex;gap:10px">
+      <div style="flex:1;text-align:center;font:700 13px 'Barlow',sans-serif;letter-spacing:1.5px;color:#FFFFFF;background:#D63A31;padding:15px 10px;border-radius:10px">SEE THE MENU</div>
+      <div style="flex:1;text-align:center;font:700 13px 'Barlow',sans-serif;letter-spacing:1.5px;color:#FFFFFF;border:2px solid rgba(255,255,255,0.35);padding:13px 10px;border-radius:10px">FOLLOW THE TRUCK</div>
+    </div>
+  </div>
+
+  <div style="display:flex;align-items:center;gap:12px;background:#D63A31;padding:13px 18px">
+    <svg width="14" height="21" viewBox="0 0 12 18" style="flex:none"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#FFFFFF"></path></svg>
+    <div style="flex:1;min-width:0">
+      <div style="font:700 9.5px 'Space Mono',Menlo,monospace;letter-spacing:2px;color:rgba(255,255,255,0.8)">WHERE WE ARE TODAY</div>
+      <div style="font:700 14px/1.3 'Space Mono',Menlo,monospace;color:#FFFFFF">{{ todayLocation }}</div>
+    </div>
+    <div style="flex:none;font:700 10.5px 'Space Mono',Menlo,monospace;color:#FFFFFF;background:#242424;padding:8px 10px;border-radius:8px">{{ todayNote }}</div>
+  </div>
+
+  <div style="padding:20px 18px 4px">
+    <div style="background:#FFFFFF;padding:8px;border-radius:14px;transform:rotate(-1.2deg);box-shadow:0 10px 24px rgba(0,0,0,0.35)">
+      <image-slot id="hero-1a" shape="rounded" radius="8" placeholder="Truck photo — night shot, headlights on" style="width:100%;height:210px;display:block"></image-slot>
+    </div>
+    <div style="font:400 10px 'Space Mono',Menlo,monospace;letter-spacing:1.5px;color:rgba(255,255,255,0.45);text-align:center;margin-top:10px">THE TRAILER · PARKED IN THE PERMIAN</div>
+  </div>
+
+  <!-- MENU (1a): final plates & prices TBD — swap the rows below, one block per item -->
+  <div style="padding:28px 22px 6px">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px">
+      <h2 style="margin:0;font:400 26px 'Alfa Slab One',Georgia,serif;color:#FFFFFF">THE BOARD</h2>
+      <div style="font:700 10px 'Space Mono',Menlo,monospace;letter-spacing:1px;color:rgba(255,255,255,0.75);border:1px dashed rgba(255,255,255,0.4);padding:6px 10px;border-radius:999px">CHICKEN · BY THE LB</div>
+    </div>
+    <p style="margin:0 0 16px;font:400 13.5px/1.45 'Barlow',sans-serif;color:rgba(255,255,255,0.6)">Cooked on the trailer. Chicken by the pound or half — everything else by the plate.</p>
+
+    <div style="background:#C4443C;border-radius:14px;padding:16px;margin-bottom:6px">
+      <div style="display:flex;align-items:center;gap:8px;font:700 9.5px 'Space Mono',Menlo,monospace;letter-spacing:1.5px;color:rgba(255,255,255,0.9);margin-bottom:8px"><svg width="9" height="14" viewBox="0 0 12 18"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#FFFFFF"></path></svg>THE SIGNATURE · COMES WITH FRIES</div>
+      <div style="font:400 22px 'Alfa Slab One',Georgia,serif;color:#FFFFFF;margin-bottom:6px">ROASTED CHICKEN</div>
+      <p style="margin:0 0 12px;font:400 13px/1.45 'Barlow',sans-serif;color:rgba(255,255,255,0.9)">Roasted on the trailer till the skin crackles. Every order comes with a side of fries.</p>
+      <div style="display:flex;gap:8px">
+        <div style="font:700 13px 'Space Mono',Menlo,monospace;color:#242424;background:#FFFFFF;padding:9px 12px;border-radius:8px">1 LB · $12.00</div>
+        <div style="font:700 13px 'Space Mono',Menlo,monospace;color:#242424;background:#FFFFFF;padding:9px 12px;border-radius:8px">½ LB · $6.50</div>
+      </div>
+    </div>
+
+    <div style="display:flex;align-items:baseline;gap:12px;padding:15px 2px;border-bottom:1px dashed rgba(255,255,255,0.18)">
+      <div style="flex:1;min-width:0"><div style="font:700 16px 'Barlow',sans-serif;color:#FFFFFF">ASIAN FRIED RICE</div><div style="font:400 12.5px/1.4 'Barlow',sans-serif;color:rgba(255,255,255,0.55)">Wok-style with egg and vegetables. Holds up all shift.</div></div>
+      <div style="flex:none;text-align:right"><div style="font:700 13px 'Space Mono',Menlo,monospace;color:#FFFFFF">$9.00</div><div style="font:400 11.5px 'Space Mono',Menlo,monospace;color:rgba(255,255,255,0.55)">PLATE</div></div>
+    </div>
+    <div style="display:flex;align-items:baseline;gap:12px;padding:15px 2px;border-bottom:1px dashed rgba(255,255,255,0.18)">
+      <div style="flex:1;min-width:0"><div style="font:700 16px 'Barlow',sans-serif;color:#FFFFFF">MILANESA</div><div style="font:400 12.5px/1.4 'Barlow',sans-serif;color:rgba(255,255,255,0.55)">Breaded steak, pounded thin, fried crisp to order.</div></div>
+      <div style="flex:none;text-align:right"><div style="font:700 13px 'Space Mono',Menlo,monospace;color:#FFFFFF">$13.00</div><div style="font:400 11.5px 'Space Mono',Menlo,monospace;color:rgba(255,255,255,0.55)">PLATE</div></div>
+    </div>
+    <div style="display:flex;align-items:baseline;gap:12px;padding:15px 2px;border-bottom:1px dashed rgba(255,255,255,0.18)">
+      <div style="flex:1;min-width:0"><div style="font:700 16px 'Barlow',sans-serif;color:#FFFFFF">CROQUETTES</div><div style="font:400 12.5px/1.4 'Barlow',sans-serif;color:rgba(255,255,255,0.55)">Golden-fried, easy to eat with one hand on the wheel.</div></div>
+      <div style="flex:none;text-align:right"><div style="font:700 13px 'Space Mono',Menlo,monospace;color:#FFFFFF">$10.00</div><div style="font:400 11.5px 'Space Mono',Menlo,monospace;color:rgba(255,255,255,0.55)">PLATE</div></div>
+    </div>
+    <div style="display:flex;align-items:baseline;gap:12px;padding:15px 2px;border-bottom:1px dashed rgba(255,255,255,0.18)">
+      <div style="flex:1;min-width:0"><div style="font:700 16px 'Barlow',sans-serif;color:#FFFFFF">FRIES</div><div style="font:400 12.5px/1.4 'Barlow',sans-serif;color:rgba(255,255,255,0.55)">Hot, salty, by the basket.</div></div>
+      <div style="flex:none;text-align:right"><div style="font:700 13px 'Space Mono',Menlo,monospace;color:#FFFFFF">$4.00</div><div style="font:400 11.5px 'Space Mono',Menlo,monospace;color:rgba(255,255,255,0.55)">BASKET</div></div>
+    </div>
+    <div style="display:flex;align-items:baseline;gap:12px;padding:15px 2px">
+      <div style="flex:1;min-width:0"><div style="font:700 16px 'Barlow',sans-serif;color:#FFFFFF">DRINKS</div><div style="font:400 12.5px/1.4 'Barlow',sans-serif;color:rgba(255,255,255,0.55)">Cold sodas &amp; bottled water.</div></div>
+      <div style="flex:none;text-align:right"><div style="font:700 13px 'Space Mono',Menlo,monospace;color:#FFFFFF">$2.00 SODA</div><div style="font:400 11.5px 'Space Mono',Menlo,monospace;color:rgba(255,255,255,0.55)">$1.50 WATER</div></div>
+    </div>
+  </div>
+
+  <div style="padding:26px 22px 28px">
+    <h2 style="margin:0 0 16px;font:400 24px 'Alfa Slab One',Georgia,serif;color:#FFFFFF">WHY THE LINE FORMS</h2>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;gap:12px;align-items:flex-start"><svg width="11" height="17" viewBox="0 0 12 18" style="flex:none;margin-top:3px"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#D63A31"></path></svg><div><div style="font:700 15px 'Barlow',sans-serif;color:#FFFFFF">A pound goes all day</div><div style="font:400 13px/1.45 'Barlow',sans-serif;color:rgba(255,255,255,0.6)">Breakfast, lunch, and the drive back — out of one box.</div></div></div>
+      <div style="display:flex;gap:12px;align-items:flex-start"><svg width="11" height="17" viewBox="0 0 12 18" style="flex:none;margin-top:3px"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#D63A31"></path></svg><div><div style="font:700 15px 'Barlow',sans-serif;color:#FFFFFF">One window, no detours</div><div style="font:400 13px/1.45 'Barlow',sans-serif;color:rgba(255,255,255,0.6)">Chicken, rice, sides, and drinks in a single stop.</div></div></div>
+      <div style="display:flex;gap:12px;align-items:flex-start"><svg width="11" height="17" viewBox="0 0 12 18" style="flex:none;margin-top:3px"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#D63A31"></path></svg><div><div style="font:700 15px 'Barlow',sans-serif;color:#FFFFFF">Heavy portions, light ticket</div><div style="font:400 13px/1.45 'Barlow',sans-serif;color:rgba(255,255,255,0.6)">Serious food at a price that doesn't sting.</div></div></div>
+    </div>
+  </div>
+
+  <!-- HOURS (1a) TBD: confirm daily times & Saturday -->
+  <div style="background:#FFFFFF;padding:26px 22px">
+    <h2 style="margin:0 0 12px;font:400 22px 'Alfa Slab One',Georgia,serif;color:#242424">HOURS</h2>
+    <div style="display:flex;justify-content:space-between;align-items:baseline;padding:11px 0;border-bottom:1px solid rgba(36,36,36,0.12)"><div style="font:600 14px 'Barlow',sans-serif;color:#242424">Monday – Friday</div><div style="font:700 13px 'Space Mono',Menlo,monospace;color:#242424">6:00 AM – 2:00 PM</div></div>
+    <div style="display:flex;justify-content:space-between;align-items:baseline;padding:11px 0;border-bottom:1px solid rgba(36,36,36,0.12)"><div style="font:600 14px 'Barlow',sans-serif;color:#242424">Saturday</div><div style="font:700 13px 'Space Mono',Menlo,monospace;color:#242424">CHECK SOCIALS</div></div>
+    <div style="display:flex;justify-content:space-between;align-items:baseline;padding:11px 0"><div style="font:600 14px 'Barlow',sans-serif;color:#242424">Sunday</div><div style="font:700 13px 'Space Mono',Menlo,monospace;color:#D63A31">CLOSED</div></div>
+    <!-- SOCIAL LINKS TBD: add real profile URLs -->
+    <div style="display:flex;gap:8px;margin-top:16px">
+      <a style="flex:1;text-align:center;font:700 11px 'Space Mono',Menlo,monospace;color:#FFFFFF;background:#242424;padding:13px 8px;border-radius:10px;text-decoration:none">FACEBOOK</a>
+      <a style="flex:1;text-align:center;font:700 11px 'Space Mono',Menlo,monospace;color:#FFFFFF;background:#242424;padding:13px 8px;border-radius:10px;text-decoration:none">TIKTOK</a>
+      <a style="flex:1;text-align:center;font:700 11px 'Space Mono',Menlo,monospace;color:#FFFFFF;background:#242424;padding:13px 8px;border-radius:10px;text-decoration:none">INSTAGRAM</a>
+    </div>
+  </div>
+
+  <div style="background:#1A1A1A;padding:24px 22px">
+    <img src="assets/chicoco-logo.png" alt="Chicoco" style="width:64px;height:auto;display:block;margin-bottom:10px">
+    <p style="margin:0 0 14px;font:400 12.5px/1.5 'Barlow',sans-serif;color:rgba(255,255,255,0.6)">Chicago-style roasted chicken, parked in the Permian Basin. Odessa – Midland, TX.</p>
+    <div style="display:flex;justify-content:space-between;border-top:1px solid rgba(255,255,255,0.12);padding-top:12px">
+      <div style="font:400 10px 'Space Mono',Menlo,monospace;color:rgba(255,255,255,0.4)">© 2026 CHICOCO</div>
+      <div style="font:400 10px 'Space Mono',Menlo,monospace;color:rgba(255,255,255,0.4)">MON–FRI · CLOSED SUN</div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ============ OPTION 1B — TRUCK PAINT ============ -->
+<div class="dv-opt" id="1b" data-screen-label="1b Truck Paint">
+<div class="dv-olabel"><a class="dv-oid" href="#1b">1b</a>Truck Paint — red poster + painted board, Passion One + Archivo</div>
+<div class="dv-card" style="width:390px;background:#C4443C">
+
+  <div style="position:relative;padding:34px 22px 28px;text-align:center">
+    <svg width="16" height="24" viewBox="0 0 12 18" style="position:absolute;top:22px;left:24px;transform:rotate(-18deg);opacity:0.7;pointer-events:none"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#FFFFFF"></path></svg>
+    <svg width="10" height="15" viewBox="0 0 12 18" style="position:absolute;top:64px;left:52px;transform:rotate(24deg);opacity:0.45;pointer-events:none"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#FFFFFF"></path></svg>
+    <svg width="20" height="30" viewBox="0 0 12 18" style="position:absolute;top:30px;right:28px;transform:rotate(14deg);opacity:0.8;pointer-events:none"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#FFFFFF"></path></svg>
+    <svg width="9" height="14" viewBox="0 0 12 18" style="position:absolute;top:96px;right:56px;transform:rotate(-30deg);opacity:0.5;pointer-events:none"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#FFFFFF"></path></svg>
+    <svg width="12" height="18" viewBox="0 0 12 18" style="position:absolute;top:180px;left:18px;transform:rotate(38deg);opacity:0.55;pointer-events:none"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#FFFFFF"></path></svg>
+    <svg width="14" height="21" viewBox="0 0 12 18" style="position:absolute;top:230px;right:20px;transform:rotate(-10deg);opacity:0.65;pointer-events:none"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#FFFFFF"></path></svg>
+    <svg width="8" height="12" viewBox="0 0 12 18" style="position:absolute;bottom:110px;left:44px;transform:rotate(12deg);opacity:0.4;pointer-events:none"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#FFFFFF"></path></svg>
+    <svg width="15" height="23" viewBox="0 0 12 18" style="position:absolute;bottom:70px;right:40px;transform:rotate(28deg);opacity:0.5;pointer-events:none"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#FFFFFF"></path></svg>
+    <div style="font:700 10px 'Space Mono',Menlo,monospace;letter-spacing:3px;color:rgba(255,255,255,0.85);margin-bottom:14px">PERMIAN BASIN · TEXAS</div>
+    <img src="assets/chicoco-logo-white.png" alt="Chicoco" style="width:230px;height:auto;display:block;margin:-34px auto -24px;transform:rotate(52deg);filter:drop-shadow(0 8px 18px rgba(36,36,36,0.28))">
+    <h1 style="margin:0 0 12px;font:900 40px/0.98 'Passion One',Impact,sans-serif;color:#FFFFFF;letter-spacing:0.5px;text-wrap:balance">GRAB THE WHOLE DAY'S FOOD IN ONE STOP.</h1>
+    <p style="margin:0 0 20px;font:400 15px/1.5 'Archivo',Arial,sans-serif;color:rgba(255,255,255,0.92)">Chicago-style roasted chicken by the pound, plus a board of plates, on your way to the rig.</p>
+    <div style="display:flex;gap:10px;justify-content:center">
+      <div style="font:700 19px/1 'Passion One',Impact,sans-serif;letter-spacing:1px;color:#C4443C;background:#FFFFFF;padding:14px 20px;border-radius:6px;box-shadow:5px 5px 0 rgba(36,36,36,0.35)">SEE THE MENU</div>
+      <div style="font:700 19px/1 'Passion One',Impact,sans-serif;letter-spacing:1px;color:#FFFFFF;background:#242424;padding:14px 20px;border-radius:6px;box-shadow:5px 5px 0 rgba(36,36,36,0.35)">TODAY'S SPOT</div>
+    </div>
+  </div>
+
+  <div style="background:#242424;padding:13px 22px;transform:rotate(-1.5deg) scale(1.04);display:flex;align-items:center;gap:12px">
+    <svg width="13" height="20" viewBox="0 0 12 18" style="flex:none"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#D63A31"></path></svg>
+    <div style="flex:1;min-width:0">
+      <div style="font:700 9.5px 'Space Mono',Menlo,monospace;letter-spacing:2px;color:rgba(255,255,255,0.65)">TODAY WE'RE AT</div>
+      <div style="font:700 14.5px/1.3 'Space Mono',Menlo,monospace;color:#FFFFFF">{{ todayLocation }}</div>
+    </div>
+    <div style="flex:none;font:700 10.5px 'Space Mono',Menlo,monospace;color:#242424;background:#FFFFFF;padding:8px 10px;border-radius:6px">{{ todayNote }}</div>
+  </div>
+
+  <!-- LIVE MAP (1b): draggable pin persists to localStorage 'chicoco_pin_1b'; init in the logic class componentDidMount -->
+  <div style="background:#242424;padding:26px 22px 24px">
+    <div style="display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:4px">
+      <svg width="12" height="18" viewBox="0 0 12 18"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#D63A31"></path></svg>
+      <h2 style="margin:0;font:900 30px/1 'Passion One',Impact,sans-serif;color:#FFFFFF;letter-spacing:1px">FIND US TODAY</h2>
+      <svg width="12" height="18" viewBox="0 0 12 18"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#D63A31"></path></svg>
+    </div>
+    <p id="pin-help-1b" style="margin:0 0 16px;font:400 12.5px/1.4 'Archivo',Arial,sans-serif;color:rgba(255,255,255,0.6);text-align:center">This is where the truck is parked today.</p>
+    <div style="border:3px solid #FFFFFF;border-radius:12px;overflow:hidden;box-shadow:0 12px 26px rgba(0,0,0,0.4)">
+      <div id="map-1b" style="width:100%;height:250px;background:#1b1b1b"></div>
+    </div>
+    <div style="margin-top:12px;display:flex;align-items:center;gap:12px;background:#C4443C;border-radius:9px;padding:11px 14px">
+      <svg width="13" height="20" viewBox="0 0 12 18" style="flex:none"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#FFFFFF"></path></svg>
+      <div style="flex:1;min-width:0">
+        <div style="font:700 9px 'Space Mono',Menlo,monospace;letter-spacing:2px;color:rgba(255,255,255,0.8)">TRUCK IS PARKED AT</div>
+        <div id="pin-readout-1b" style="font:700 13px/1.3 'Space Mono',Menlo,monospace;color:#FFFFFF">—</div>
+      </div>
+      <button id="pin-owner-1b" type="button" style="flex:none;font:700 10px 'Space Mono',Menlo,monospace;letter-spacing:1px;color:#C4443C;background:#FFFFFF;border:none;padding:9px 12px;border-radius:7px;cursor:pointer">OWNER</button>
+    </div>
+    <div style="font:400 9.5px 'Space Mono',Menlo,monospace;letter-spacing:0.5px;color:rgba(255,255,255,0.45);text-align:center;margin-top:9px">Pin is set by Chicoco — visitors see it read-only. “Owner” stands in for the client login.</div>
+  </div>
+
+  <image-slot id="hero-1b" shape="rect" placeholder="Truck photo — full side of the trailer, diamonds visible" style="width:100%;height:250px;display:block"></image-slot>
+
+  <!-- FOOD GALLERY (1b): the centerpiece — drop real food photos here. Signature shot + 3 plates (all TBD). -->
+  <div style="background:#F2EDE2;padding:32px 22px 30px">
+    <div style="text-align:center;margin-bottom:16px">
+      <div style="font:700 10px 'Space Mono',Menlo,monospace;letter-spacing:2.5px;color:#C4443C;margin-bottom:6px">STRAIGHT OFF THE TRAILER</div>
+      <h2 style="margin:0;font:900 30px/0.98 'Passion One',Impact,sans-serif;color:#242424;letter-spacing:0.5px">THE FOOD DOES THE TALKING</h2>
+    </div>
+    <div style="position:relative;border-radius:14px;overflow:hidden;box-shadow:0 12px 26px rgba(36,36,36,0.22)">
+      <image-slot id="food-1b-chicken" shape="rect" placeholder="Roasted chicken — the money shot" style="width:100%;height:270px;display:block"></image-slot>
+      <div style="position:absolute;left:12px;bottom:12px;font:700 11px 'Space Mono',Menlo,monospace;letter-spacing:1px;color:#FFFFFF;background:#C4443C;padding:8px 12px;border-radius:7px;box-shadow:0 4px 10px rgba(0,0,0,0.3)">THE SIGNATURE · ROASTED CHICKEN</div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:12px">
+      <div>
+        <image-slot id="food-1b-rice" shape="rounded" radius="11" placeholder="Fried rice" style="width:100%;height:104px;display:block"></image-slot>
+        <div style="font:700 9.5px 'Space Mono',Menlo,monospace;letter-spacing:0.5px;color:#6B6B6B;text-align:center;margin-top:7px">FRIED RICE</div>
+      </div>
+      <div>
+        <image-slot id="food-1b-milanesa" shape="rounded" radius="11" placeholder="Milanesa" style="width:100%;height:104px;display:block"></image-slot>
+        <div style="font:700 9.5px 'Space Mono',Menlo,monospace;letter-spacing:0.5px;color:#6B6B6B;text-align:center;margin-top:7px">MILANESA</div>
+      </div>
+      <div>
+        <image-slot id="food-1b-croq" shape="rounded" radius="11" placeholder="Croquettes" style="width:100%;height:104px;display:block"></image-slot>
+        <div style="font:700 9.5px 'Space Mono',Menlo,monospace;letter-spacing:0.5px;color:#6B6B6B;text-align:center;margin-top:7px">CROQUETTES</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MENU (1b): final plates & prices TBD — swap the rows below, one block per item -->
+  <div style="background:#242424;padding:30px 22px 26px">
+    <div style="display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:4px">
+      <svg width="12" height="18" viewBox="0 0 12 18"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#D63A31"></path></svg>
+      <h2 style="margin:0;font:900 34px/1 'Passion One',Impact,sans-serif;color:#FFFFFF;letter-spacing:2px">MENU</h2>
+      <svg width="12" height="18" viewBox="0 0 12 18"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#D63A31"></path></svg>
+    </div>
+    <p style="margin:0 0 18px;font:400 13px/1.4 'Archivo',Arial,sans-serif;color:rgba(255,255,255,0.65);text-align:center">Chicken by the pound or half. The rest, by the plate — cooked on the trailer.</p>
+
+    <!-- MENU (1b): final plates & prices TBD. Only the chicken is sold by the lb / ½ lb; everything else is one plate price. -->
+    <div style="display:grid;grid-template-columns:1fr auto;column-gap:14px;padding:0 0 8px;border-bottom:2px solid rgba(255,255,255,0.25)">
+      <div style="font:700 10px 'Space Mono',Menlo,monospace;letter-spacing:1.5px;color:rgba(255,255,255,0.5)">PLATE</div>
+      <div style="font:700 10px 'Space Mono',Menlo,monospace;letter-spacing:1.5px;color:rgba(255,255,255,0.5);text-align:right">PRICE</div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr auto;column-gap:14px;align-items:baseline;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.14)">
+      <div style="min-width:0"><div style="font:700 21px/1.05 'Passion One',Impact,sans-serif;color:#FFFFFF;letter-spacing:0.5px">ROASTED CHICKEN</div><div style="display:inline-block;font:700 9px 'Space Mono',Menlo,monospace;letter-spacing:1px;color:#FFFFFF;background:#D63A31;padding:4px 7px;border-radius:4px;margin-top:6px">SIGNATURE ◆ W/ FRIES</div></div>
+      <div style="text-align:right"><div style="font:700 15px 'Space Mono',Menlo,monospace;color:#FFFFFF">12.00 <span style="font-weight:400;color:rgba(255,255,255,0.55)">/ LB</span></div><div style="font:400 12px 'Space Mono',Menlo,monospace;color:rgba(255,255,255,0.6);margin-top:3px">6.50 / ½ LB</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr auto;column-gap:14px;align-items:baseline;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.14)">
+      <div style="font:700 21px/1.05 'Passion One',Impact,sans-serif;color:#FFFFFF;letter-spacing:0.5px">ASIAN FRIED RICE</div>
+      <div style="text-align:right"><div style="font:700 15px 'Space Mono',Menlo,monospace;color:#FFFFFF">9.00</div><div style="font:400 9.5px 'Space Mono',Menlo,monospace;letter-spacing:1px;color:rgba(255,255,255,0.45);margin-top:3px">PLATE</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr auto;column-gap:14px;align-items:baseline;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.14)">
+      <div style="font:700 21px/1.05 'Passion One',Impact,sans-serif;color:#FFFFFF;letter-spacing:0.5px">MILANESA</div>
+      <div style="text-align:right"><div style="font:700 15px 'Space Mono',Menlo,monospace;color:#FFFFFF">13.00</div><div style="font:400 9.5px 'Space Mono',Menlo,monospace;letter-spacing:1px;color:rgba(255,255,255,0.45);margin-top:3px">PLATE</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr auto;column-gap:14px;align-items:baseline;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.14)">
+      <div style="font:700 21px/1.05 'Passion One',Impact,sans-serif;color:#FFFFFF;letter-spacing:0.5px">CROQUETTES</div>
+      <div style="text-align:right"><div style="font:700 15px 'Space Mono',Menlo,monospace;color:#FFFFFF">10.00</div><div style="font:400 9.5px 'Space Mono',Menlo,monospace;letter-spacing:1px;color:rgba(255,255,255,0.45);margin-top:3px">PLATE</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr auto;column-gap:14px;align-items:baseline;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.14)">
+      <div style="font:700 21px/1.05 'Passion One',Impact,sans-serif;color:#FFFFFF;letter-spacing:0.5px">FRIES</div>
+      <div style="text-align:right"><div style="font:700 15px 'Space Mono',Menlo,monospace;color:#FFFFFF">4.00</div><div style="font:400 9.5px 'Space Mono',Menlo,monospace;letter-spacing:1px;color:rgba(255,255,255,0.45);margin-top:3px">BASKET</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr auto;column-gap:14px;align-items:baseline;padding:14px 0">
+      <div style="font:700 21px/1.05 'Passion One',Impact,sans-serif;color:#FFFFFF;letter-spacing:0.5px">DRINKS</div>
+      <div style="text-align:right"><div style="font:700 15px 'Space Mono',Menlo,monospace;color:#FFFFFF">2.00 <span style="font-weight:400;color:rgba(255,255,255,0.55)">/ 1.50</span></div><div style="font:400 9.5px 'Space Mono',Menlo,monospace;letter-spacing:1px;color:rgba(255,255,255,0.45);margin-top:3px">SODA / WATER</div></div>
+    </div>
+    <div style="border-top:2px dashed rgba(255,255,255,0.25);padding-top:12px;margin-top:6px;font:400 10.5px 'Space Mono',Menlo,monospace;letter-spacing:1.5px;color:rgba(255,255,255,0.5);text-align:center">CASH &amp; CARD · COOKED ON THE TRAILER</div>
+  </div>
+
+  <div style="background:#FFFFFF;padding:28px 22px">
+    <h2 style="margin:0 0 18px;font:900 27px/1 'Passion One',Impact,sans-serif;color:#C4443C;text-align:center;letter-spacing:1px">BUILT FOR THE OIL FIELD</h2>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="display:flex;gap:14px;align-items:flex-start"><div style="flex:none;font:700 20px 'Space Mono',Menlo,monospace;color:#D63A31">01</div><div><div style="font:700 15px 'Archivo',Arial,sans-serif;color:#242424">A pound goes all day</div><div style="font:400 13px/1.45 'Archivo',Arial,sans-serif;color:#6B6B6B">Breakfast, lunch, and the drive back — out of one box.</div></div></div>
+      <div style="display:flex;gap:14px;align-items:flex-start"><div style="flex:none;font:700 20px 'Space Mono',Menlo,monospace;color:#D63A31">02</div><div><div style="font:700 15px 'Archivo',Arial,sans-serif;color:#242424">One window, no detours</div><div style="font:400 13px/1.45 'Archivo',Arial,sans-serif;color:#6B6B6B">Chicken, rice, sides, and drinks in a single stop.</div></div></div>
+      <div style="display:flex;gap:14px;align-items:flex-start"><div style="flex:none;font:700 20px 'Space Mono',Menlo,monospace;color:#D63A31">03</div><div><div style="font:700 15px 'Archivo',Arial,sans-serif;color:#242424">Heavy portions, light ticket</div><div style="font:400 13px/1.45 'Archivo',Arial,sans-serif;color:#6B6B6B">A full day of food for less than a sit-down lunch.</div></div></div>
+    </div>
+  </div>
+
+  <!-- HOURS (1b) TBD: confirm daily times & Saturday -->
+  <div style="background:#C4443C;padding:26px 22px 28px">
+    <h2 style="margin:0 0 14px;font:900 27px/1 'Passion One',Impact,sans-serif;color:#FFFFFF;letter-spacing:1px;text-align:center">HOURS</h2>
+    <div style="background:#FFFFFF;border-radius:10px;padding:6px 16px;margin-bottom:16px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;padding:11px 0;border-bottom:1px solid rgba(36,36,36,0.1)"><div style="font:700 14px 'Archivo',Arial,sans-serif;color:#242424">Monday – Friday</div><div style="font:700 13px 'Space Mono',Menlo,monospace;color:#242424">6:00 AM – 2:00 PM</div></div>
+      <div style="display:flex;justify-content:space-between;align-items:baseline;padding:11px 0;border-bottom:1px solid rgba(36,36,36,0.1)"><div style="font:700 14px 'Archivo',Arial,sans-serif;color:#242424">Saturday</div><div style="font:700 13px 'Space Mono',Menlo,monospace;color:#242424">CHECK SOCIALS</div></div>
+      <div style="display:flex;justify-content:space-between;align-items:baseline;padding:11px 0"><div style="font:700 14px 'Archivo',Arial,sans-serif;color:#242424">Sunday</div><div style="font:700 13px 'Space Mono',Menlo,monospace;color:#D63A31">CLOSED</div></div>
+    </div>
+    <!-- SOCIAL LINKS TBD: add real profile URLs -->
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <a style="text-align:center;font:700 18px/1 'Passion One',Impact,sans-serif;letter-spacing:1.5px;color:#FFFFFF;border:2.5px solid #FFFFFF;padding:13px 10px;border-radius:6px;box-shadow:4px 4px 0 rgba(36,36,36,0.3);text-decoration:none">FOLLOW ON FACEBOOK</a>
+      <a style="text-align:center;font:700 18px/1 'Passion One',Impact,sans-serif;letter-spacing:1.5px;color:#FFFFFF;border:2.5px solid #FFFFFF;padding:13px 10px;border-radius:6px;box-shadow:4px 4px 0 rgba(36,36,36,0.3);text-decoration:none">FOLLOW ON TIKTOK</a>
+      <a style="text-align:center;font:700 18px/1 'Passion One',Impact,sans-serif;letter-spacing:1.5px;color:#FFFFFF;border:2.5px solid #FFFFFF;padding:13px 10px;border-radius:6px;box-shadow:4px 4px 0 rgba(36,36,36,0.3);text-decoration:none">FOLLOW ON INSTAGRAM</a>
+    </div>
+  </div>
+
+  <div style="background:#242424;padding:24px 22px;text-align:center">
+    <img src="assets/chicoco-logo-white.png" alt="Chicoco" style="width:82px;height:auto;display:block;margin:0 auto 10px">
+    <p style="margin:0 0 10px;font:400 12.5px/1.5 'Archivo',Arial,sans-serif;color:rgba(255,255,255,0.6)">Chicago-style food truck · Odessa – Midland, Texas</p>
+    <div style="font:400 10px 'Space Mono',Menlo,monospace;letter-spacing:1px;color:rgba(255,255,255,0.4)">© 2026 CHICOCO · MON–FRI · CLOSED SUNDAY</div>
+  </div>
+
+</div>
+</div>
+
+<!-- ============ OPTION 1C — ORDER WINDOW ============ -->
+<div class="dv-opt" id="1c" data-screen-label="1c Order Window">
+<div class="dv-olabel"><a class="dv-oid" href="#1c">1c</a>Order Window — printed-ticket white, Lilita One + Work Sans</div>
+<div class="dv-card" style="width:390px;background:#FFFFFF">
+
+  <div style="height:10px;background:#D63A31"></div>
+  <div style="padding:24px 20px 0;text-align:center">
+    <img src="assets/chicoco-logo.png" alt="Chicoco" style="width:150px;height:auto;display:block;margin:-22px auto -14px;transform:rotate(52deg)">
+    <div style="font:700 10.5px 'Space Mono',Menlo,monospace;letter-spacing:2.5px;color:#6B6B6B;margin-bottom:16px">CHICAGO-STYLE · PERMIAN BASIN, TX</div>
+    <div style="border-top:3px solid #242424;margin-bottom:3px"></div>
+    <div style="border-top:1px solid #242424"></div>
+  </div>
+
+  <div style="padding:24px 22px 8px;text-align:center">
+    <h1 style="margin:0 0 12px;font:400 33px/1.1 'Lilita One',Georgia,sans-serif;color:#242424;text-wrap:balance">A FULL DAY'S FOOD. <span style="color:#D63A31">ONE STOP FROM THE RIG.</span></h1>
+    <p style="margin:0 0 16px;font:400 14.5px/1.55 'Work Sans',Arial,sans-serif;color:#555555">Roasted chicken by the pound — enough to get you through the shift and the drive home.</p>
+    <div style="display:inline-block;transform:rotate(-6deg);font:700 12px 'Space Mono',Menlo,monospace;letter-spacing:1.5px;color:#D63A31;border:3px solid #D63A31;border-radius:8px;padding:8px 14px;margin-bottom:8px">CHICKEN BY THE POUND</div>
+  </div>
+
+  <div style="margin:12px 18px;background:#D63A31;border-radius:12px;padding:8px">
+    <div style="border:2px dashed rgba(255,255,255,0.55);border-radius:8px;padding:12px 14px;display:flex;align-items:center;gap:12px">
+      <svg width="13" height="20" viewBox="0 0 12 18" style="flex:none"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#FFFFFF"></path></svg>
+      <div style="flex:1;min-width:0">
+        <div style="font:700 9.5px 'Space Mono',Menlo,monospace;letter-spacing:2px;color:rgba(255,255,255,0.85)">WHERE WE ARE TODAY</div>
+        <div style="font:700 14.5px/1.3 'Space Mono',Menlo,monospace;color:#FFFFFF">{{ todayLocation }}</div>
+      </div>
+      <div style="flex:none;font:700 10.5px 'Space Mono',Menlo,monospace;color:#D63A31;background:#FFFFFF;padding:8px 10px;border-radius:6px">{{ todayNote }}</div>
+    </div>
+  </div>
+
+  <div style="margin:18px 18px 6px">
+    <div style="border:3px solid #242424;border-radius:10px;padding:8px;background:#FFFFFF;box-shadow:7px 7px 0 #F2DEDC">
+      <image-slot id="hero-1c" shape="rounded" radius="5" placeholder="Truck photo — day shot at the yard" style="width:100%;height:215px;display:block"></image-slot>
+    </div>
+    <div style="font:400 10px 'Space Mono',Menlo,monospace;letter-spacing:1.5px;color:#9A9A9A;text-align:center;margin-top:10px">THE TRUCK · ODESSA–MIDLAND</div>
+  </div>
+
+  <!-- LIVE MAP (1c): shares the pin with 1b via localStorage 'chicoco_pin'; read-only for visitors, editable only in owner mode -->
+  <div style="padding:6px 18px 20px">
+    <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:2px">
+      <svg width="10" height="15" viewBox="0 0 12 18"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#D63A31"></path></svg>
+      <h2 style="margin:0;font:400 24px 'Lilita One',Georgia,sans-serif;color:#242424">FIND THE TRUCK</h2>
+      <svg width="10" height="15" viewBox="0 0 12 18"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#D63A31"></path></svg>
+    </div>
+    <p id="pin-help-1c" style="margin:0 0 12px;font:400 13px/1.45 'Work Sans',Arial,sans-serif;color:#777777;text-align:center">This is where the truck is parked today.</p>
+    <div style="border:3px solid #242424;border-radius:10px;overflow:hidden;box-shadow:7px 7px 0 #F2DEDC">
+      <div id="map-1c" style="width:100%;height:230px;background:#EDE7DB"></div>
+    </div>
+    <div style="margin-top:14px;display:flex;align-items:center;gap:10px;border:2px dashed #D9D2C7;border-radius:10px;padding:10px 12px">
+      <svg width="12" height="18" viewBox="0 0 12 18" style="flex:none"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#D63A31"></path></svg>
+      <div style="flex:1;min-width:0">
+        <div style="font:700 9px 'Space Mono',Menlo,monospace;letter-spacing:1.5px;color:#9A9A9A">TRUCK IS PARKED AT</div>
+        <div id="pin-readout-1c" style="font:700 12.5px/1.3 'Space Mono',Menlo,monospace;color:#242424">—</div>
+      </div>
+      <button id="pin-owner-1c" type="button" style="flex:none;font:700 10px 'Space Mono',Menlo,monospace;letter-spacing:1px;color:#C4443C;background:#FFFFFF;border:2px solid #242424;padding:8px 11px;border-radius:8px;cursor:pointer">OWNER</button>
+    </div>
+    <div style="font:400 9.5px 'Space Mono',Menlo,monospace;letter-spacing:0.5px;color:#B0A59A;text-align:center;margin-top:8px">Pin is set by Chicoco — visitors see it read-only.</div>
+  </div>
+
+  <!-- MENU (1c): final plates & prices TBD — swap the rows below, one block per item -->
+  <div style="padding:24px 22px 10px">
+    <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:4px">
+      <svg width="10" height="15" viewBox="0 0 12 18"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#D63A31"></path></svg>
+      <h2 style="margin:0;font:400 27px 'Lilita One',Georgia,sans-serif;color:#242424">TODAY'S BOARD</h2>
+      <svg width="10" height="15" viewBox="0 0 12 18"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#D63A31"></path></svg>
+    </div>
+    <div style="font:400 10.5px 'Space Mono',Menlo,monospace;letter-spacing:1.5px;color:#9A9A9A;text-align:center;margin-bottom:14px">CHICKEN BY THE LB · REST BY THE PLATE</div>
+
+    <div style="padding:13px 0;border-bottom:2px dotted #D9D2C7">
+      <div style="display:flex;align-items:baseline;gap:10px">
+        <div style="display:flex;align-items:center;gap:7px;min-width:0"><svg width="9" height="14" viewBox="0 0 12 18" style="flex:none"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#D63A31"></path></svg><span style="font:600 16px 'Work Sans',Arial,sans-serif;color:#242424">Roasted Chicken</span></div>
+        <div style="flex:1;border-bottom:2px dotted #D9D2C7;min-width:14px"></div>
+        <div style="flex:none;text-align:right"><div style="font:700 13.5px 'Space Mono',Menlo,monospace;color:#D63A31">1LB 12.00</div><div style="font:400 12px 'Space Mono',Menlo,monospace;color:#8A8A8A">½LB 6.50</div></div>
+      </div>
+      <div style="font:400 12.5px/1.45 'Work Sans',Arial,sans-serif;color:#777777;margin-top:5px">The signature — roasted on the trailer, comes with fries.</div>
+    </div>
+    <div style="padding:13px 0;border-bottom:2px dotted #D9D2C7">
+      <div style="display:flex;align-items:baseline;gap:10px">
+        <span style="font:600 16px 'Work Sans',Arial,sans-serif;color:#242424;min-width:0">Asian Fried Rice</span>
+        <div style="flex:1;border-bottom:2px dotted #D9D2C7;min-width:14px"></div>
+        <div style="flex:none;text-align:right"><div style="font:700 13.5px 'Space Mono',Menlo,monospace;color:#D63A31">9.00</div><div style="font:400 11px 'Space Mono',Menlo,monospace;letter-spacing:0.5px;color:#8A8A8A">PLATE</div></div>
+      </div>
+      <div style="font:400 12.5px/1.45 'Work Sans',Arial,sans-serif;color:#777777;margin-top:5px">Wok-style with egg and vegetables. Holds up all shift.</div>
+    </div>
+    <div style="padding:13px 0;border-bottom:2px dotted #D9D2C7">
+      <div style="display:flex;align-items:baseline;gap:10px">
+        <span style="font:600 16px 'Work Sans',Arial,sans-serif;color:#242424;min-width:0">Milanesa</span>
+        <div style="flex:1;border-bottom:2px dotted #D9D2C7;min-width:14px"></div>
+        <div style="flex:none;text-align:right"><div style="font:700 13.5px 'Space Mono',Menlo,monospace;color:#D63A31">13.00</div><div style="font:400 11px 'Space Mono',Menlo,monospace;letter-spacing:0.5px;color:#8A8A8A">PLATE</div></div>
+      </div>
+      <div style="font:400 12.5px/1.45 'Work Sans',Arial,sans-serif;color:#777777;margin-top:5px">Breaded steak, pounded thin, fried crisp to order.</div>
+    </div>
+    <div style="padding:13px 0;border-bottom:2px dotted #D9D2C7">
+      <div style="display:flex;align-items:baseline;gap:10px">
+        <span style="font:600 16px 'Work Sans',Arial,sans-serif;color:#242424;min-width:0">Croquettes</span>
+        <div style="flex:1;border-bottom:2px dotted #D9D2C7;min-width:14px"></div>
+        <div style="flex:none;text-align:right"><div style="font:700 13.5px 'Space Mono',Menlo,monospace;color:#D63A31">10.00</div><div style="font:400 11px 'Space Mono',Menlo,monospace;letter-spacing:0.5px;color:#8A8A8A">PLATE</div></div>
+      </div>
+      <div style="font:400 12.5px/1.45 'Work Sans',Arial,sans-serif;color:#777777;margin-top:5px">Golden-fried, easy to eat with one hand on the wheel.</div>
+    </div>
+    <div style="padding:13px 0">
+      <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:6px">
+        <span style="font:600 16px 'Work Sans',Arial,sans-serif;color:#242424;min-width:0">Fries</span>
+        <div style="flex:1;border-bottom:2px dotted #D9D2C7;min-width:14px"></div>
+        <div style="flex:none;font:700 13.5px 'Space Mono',Menlo,monospace;color:#D63A31">BASKET 4.00</div>
+      </div>
+      <div style="display:flex;align-items:baseline;gap:10px">
+        <span style="font:600 16px 'Work Sans',Arial,sans-serif;color:#242424;min-width:0">Drinks</span>
+        <div style="flex:1;border-bottom:2px dotted #D9D2C7;min-width:14px"></div>
+        <div style="flex:none;font:700 13.5px 'Space Mono',Menlo,monospace;color:#D63A31">SODA 2.00 · H₂O 1.50</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:#242424;padding:24px 22px">
+    <h2 style="margin:0 0 16px;font:400 22px 'Lilita One',Georgia,sans-serif;color:#FFFFFF;text-align:center">THE DEAL</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;text-align:center">
+      <div><svg width="11" height="17" viewBox="0 0 12 18" style="margin-bottom:8px"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#D63A31"></path></svg><div style="font:700 13px/1.3 'Work Sans',Arial,sans-serif;color:#FFFFFF">A pound goes all day</div></div>
+      <div><svg width="11" height="17" viewBox="0 0 12 18" style="margin-bottom:8px"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#D63A31"></path></svg><div style="font:700 13px/1.3 'Work Sans',Arial,sans-serif;color:#FFFFFF">One window, no detours</div></div>
+      <div><svg width="11" height="17" viewBox="0 0 12 18" style="margin-bottom:8px"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#D63A31"></path></svg><div style="font:700 13px/1.3 'Work Sans',Arial,sans-serif;color:#FFFFFF">Heavy portions, light ticket</div></div>
+    </div>
+  </div>
+
+  <!-- HOURS (1c) TBD: confirm daily times & Saturday -->
+  <div style="padding:24px 22px">
+    <h2 style="margin:0 0 10px;font:400 22px 'Lilita One',Georgia,sans-serif;color:#242424">HOURS</h2>
+    <div style="display:flex;justify-content:space-between;align-items:baseline;padding:10px 0;border-bottom:1px solid #EEEAE3"><div style="font:600 14px 'Work Sans',Arial,sans-serif;color:#242424">Monday – Friday</div><div style="font:700 13px 'Space Mono',Menlo,monospace;color:#242424">6:00 AM – 2:00 PM</div></div>
+    <div style="display:flex;justify-content:space-between;align-items:baseline;padding:10px 0;border-bottom:1px solid #EEEAE3"><div style="font:600 14px 'Work Sans',Arial,sans-serif;color:#242424">Saturday</div><div style="font:700 13px 'Space Mono',Menlo,monospace;color:#242424">CHECK SOCIALS</div></div>
+    <div style="display:flex;justify-content:space-between;align-items:baseline;padding:10px 0"><div style="font:600 14px 'Work Sans',Arial,sans-serif;color:#242424">Sunday</div><div style="font:700 13px 'Space Mono',Menlo,monospace;color:#D63A31">CLOSED</div></div>
+    <!-- SOCIAL LINKS TBD: add real profile URLs -->
+    <div style="display:flex;gap:8px;margin-top:16px">
+      <a style="flex:1;text-align:center;font:700 11px 'Space Mono',Menlo,monospace;color:#242424;background:#FFFFFF;border:2.5px solid #242424;padding:12px 6px;border-radius:10px;box-shadow:3px 3px 0 #242424;text-decoration:none">FACEBOOK</a>
+      <a style="flex:1;text-align:center;font:700 11px 'Space Mono',Menlo,monospace;color:#242424;background:#FFFFFF;border:2.5px solid #242424;padding:12px 6px;border-radius:10px;box-shadow:3px 3px 0 #242424;text-decoration:none">TIKTOK</a>
+      <a style="flex:1;text-align:center;font:700 11px 'Space Mono',Menlo,monospace;color:#242424;background:#FFFFFF;border:2.5px solid #242424;padding:12px 6px;border-radius:10px;box-shadow:3px 3px 0 #242424;text-decoration:none">INSTAGRAM</a>
+    </div>
+  </div>
+
+  <div style="background:#242424;padding:22px;text-align:center">
+    <div style="display:flex;justify-content:center;gap:10px;margin-bottom:12px">
+      <svg width="8" height="12" viewBox="0 0 12 18"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#D63A31"></path></svg>
+      <svg width="8" height="12" viewBox="0 0 12 18"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#FFFFFF"></path></svg>
+      <svg width="8" height="12" viewBox="0 0 12 18"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#D63A31"></path></svg>
+    </div>
+    <p style="margin:0 0 10px;font:400 12px/1.5 'Work Sans',Arial,sans-serif;color:rgba(255,255,255,0.65)">Roasted chicken &amp; plates by the pound — Odessa–Midland, Texas.</p>
+    <div style="font:400 10px 'Space Mono',Menlo,monospace;letter-spacing:1px;color:rgba(255,255,255,0.4)">© 2026 CHICOCO · MON–FRI · CLOSED SUNDAY</div>
+  </div>
+  <div style="height:10px;background:#D63A31"></div>
+
+</div>
+</div>
+
+</div>
+<p class="dv-next">Try next: "build <a class="dv-oid" href="#1b">1b</a> out as the full responsive page" · "add the map + food slots to <a class="dv-oid" href="#1a">1a</a> too" · "wire OWNER up to a real login" · "show a desktop pass of <a class="dv-oid" href="#1b">1b</a>"</p>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;todayLocation&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Hwy 191 @ FM 1788 — Midland side&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Today's spot&quot;},&quot;todayNote&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;6 AM – 2 PM&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Today's spot&quot;}}">
+class Component extends DCLogic {
+  componentDidMount() { this._initMaps(0); }
+  _initMaps(tries) {
+    if (!window.L) { if (tries < 80) setTimeout(() => this._initMaps(tries + 1), 100); return; }
+    this._makeMap('map-1b');
+    this._makeMap('map-1c');
+  }
+  _makeMap(mapId) {
+    var el = document.getElementById(mapId);
+    if (!el || el._chicocoInit) return;
+    el._chicocoInit = true;
+    var suffix = mapId.slice(-2);
+    var KEY = 'chicoco_pin';
+    var DEFAULT = [31.906, -102.06]; // Permian Basin, between Odessa & Midland
+    var saved = null;
+    try { saved = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) {}
+    var start = (saved && typeof saved.lat === 'number') ? [saved.lat, saved.lng] : DEFAULT;
+    var map = L.map(el, { zoomControl: true, scrollWheelZoom: false }).setView(start, 11);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', { subdomains: 'abcd', maxZoom: 19, attribution: '&copy; OpenStreetMap, &copy; CARTO' }).addTo(map);
+    var icon = L.divIcon({ className: '', html: '<div style="width:17px;height:17px;background:#D63A31;border:2.5px solid #fff;transform:rotate(45deg);box-shadow:0 1px 6px rgba(0,0,0,.5)"></div>', iconSize: [17, 17], iconAnchor: [8.5, 8.5] });
+    var marker = L.marker(start, { draggable: true, icon: icon }).addTo(map);
+    var readout = document.getElementById('pin-readout-' + suffix);
+    var help = document.getElementById('pin-help-' + suffix);
+    var toggle = document.getElementById('pin-owner-' + suffix);
+    var owner = false;
+    function fmt(ll) { return ll.lat.toFixed(4) + ',  ' + ll.lng.toFixed(4); }
+    function render() { if (readout) readout.textContent = fmt(marker.getLatLng()); }
+    function save(ll) { try { localStorage.setItem(KEY, JSON.stringify({ lat: ll.lat, lng: ll.lng })); } catch (e) {} marker.setLatLng(ll); render(); }
+    render();
+    marker.on('dragend', function () { if (owner) save(marker.getLatLng()); });
+    map.on('click', function (e) { if (owner) save(e.latlng); });
+    function setOwner(on) {
+      owner = on;
+      if (marker.dragging) { owner ? marker.dragging.enable() : marker.dragging.disable(); }
+      el.style.cursor = owner ? 'crosshair' : '';
+      if (help) help.textContent = owner ? "Owner mode \u2014 tap the map or drag the pin to set today's spot." : "This is where the truck is parked today.";
+      if (toggle) { toggle.textContent = owner ? 'DONE' : 'OWNER'; toggle.style.background = owner ? '#242424' : '#FFFFFF'; toggle.style.color = owner ? '#FFFFFF' : '#C4443C'; }
+    }
+    setOwner(false);
+    if (/[?&]owner=1/.test(location.search || '')) setOwner(true);
+    if (toggle) toggle.addEventListener('click', function () { setOwner(!owner); });
+    setTimeout(function () { map.invalidateSize(); }, 250);
+  }
+  renderVals() {
+    return {
+      todayLocation: this.props.todayLocation ?? "Hwy 191 @ FM 1788 — Midland side",
+      todayNote: this.props.todayNote ?? "6 AM – 2 PM",
+    };
+  }
+}
+</script>
+</body>
+</html>

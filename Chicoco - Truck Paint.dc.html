@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&amp;family=Passion+One:wght@700;900&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="./image-slot.js"></script>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#C4443C;font-family:'Archivo',Arial,sans-serif;-webkit-font-smoothing:antialiased;color:#242424}
+img{display:block;max-width:100%}
+a{color:inherit}
+.diamond{position:absolute;pointer-events:none}
+</style>
+</helmet>
+
+<div data-screen-label="Chicoco — Truck Paint (1b) full page">
+
+<!-- ============ STICKY NAV ============ -->
+<header style="position:sticky;top:0;z-index:1100;background:#C4443C;border-bottom:2px solid rgba(0,0,0,0.14)">
+  <div style="max-width:1200px;margin:0 auto;padding:11px clamp(16px,4vw,40px);display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+    <img src="assets/chicoco-logo-white.png" alt="Chicoco" style="width:50px;height:auto;flex:none">
+    <nav style="display:flex;gap:clamp(12px,2.2vw,28px);flex-wrap:wrap;flex:1;min-width:0;margin-left:6px">
+      <a href="#menu" style="font:700 13px 'Archivo';letter-spacing:1px;color:#fff;text-decoration:none">MENU</a>
+      <a href="#find" style="font:700 13px 'Archivo';letter-spacing:1px;color:#fff;text-decoration:none">FIND US</a>
+      <a href="#food" style="font:700 13px 'Archivo';letter-spacing:1px;color:#fff;text-decoration:none">FOOD</a>
+      <a href="#hours" style="font:700 13px 'Archivo';letter-spacing:1px;color:#fff;text-decoration:none">HOURS</a>
+    </nav>
+    <a href="#find" style="flex:none;font:700 12.5px 'Archivo';letter-spacing:1px;color:#C4443C;background:#fff;padding:10px 15px;border-radius:8px;text-decoration:none;box-shadow:3px 3px 0 rgba(36,36,36,0.3)">TODAY'S SPOT</a>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section style="position:relative;background:#C4443C;overflow:hidden">
+  <svg class="diamond" width="26" height="39" viewBox="0 0 12 18" style="top:40px;left:5%;transform:rotate(-16deg);opacity:0.65"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#fff"></path></svg>
+  <svg class="diamond" width="16" height="24" viewBox="0 0 12 18" style="top:120px;left:12%;transform:rotate(22deg);opacity:0.4"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#fff"></path></svg>
+  <svg class="diamond" width="30" height="45" viewBox="0 0 12 18" style="top:60px;right:6%;transform:rotate(14deg);opacity:0.6"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#fff"></path></svg>
+  <svg class="diamond" width="14" height="21" viewBox="0 0 12 18" style="bottom:70px;right:16%;transform:rotate(-24deg);opacity:0.45"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#fff"></path></svg>
+  <svg class="diamond" width="20" height="30" viewBox="0 0 12 18" style="bottom:40px;left:8%;transform:rotate(30deg);opacity:0.5"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#fff"></path></svg>
+  <div style="max-width:1180px;margin:0 auto;padding:clamp(38px,5.5vw,84px) clamp(20px,5vw,48px);display:flex;flex-wrap:wrap;gap:clamp(28px,4vw,60px);align-items:center;position:relative">
+    <div style="flex:1 1 400px;min-width:0">
+      <div style="font:700 clamp(10px,1.3vw,13px) 'Space Mono',monospace;letter-spacing:3px;color:rgba(255,255,255,0.85);margin-bottom:16px">PERMIAN BASIN · TEXAS · CHICAGO-STYLE</div>
+      <h1 style="margin:0 0 18px;font:900 clamp(42px,6.6vw,88px)/0.94 'Passion One',Impact,sans-serif;color:#fff;letter-spacing:0.5px;text-wrap:balance">GRAB THE WHOLE DAY'S FOOD IN ONE STOP.</h1>
+      <p style="margin:0 0 26px;font:400 clamp(15px,1.55vw,19px)/1.5 'Archivo';color:rgba(255,255,255,0.92);max-width:520px">Chicago-style roasted chicken by the pound, plus a board of plates — cooked right on the trailer, on your way to the rig.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <a href="#menu" style="font:700 clamp(16px,1.7vw,20px)/1 'Passion One',Impact,sans-serif;letter-spacing:1px;color:#C4443C;background:#fff;padding:16px 26px;border-radius:8px;text-decoration:none;box-shadow:5px 5px 0 rgba(36,36,36,0.35)">SEE THE MENU</a>
+        <a href="#find" style="font:700 clamp(16px,1.7vw,20px)/1 'Passion One',Impact,sans-serif;letter-spacing:1px;color:#fff;background:#242424;padding:16px 26px;border-radius:8px;text-decoration:none;box-shadow:5px 5px 0 rgba(36,36,36,0.35)">FIND THE TRUCK</a>
+      </div>
+    </div>
+    <div style="flex:1 1 380px;min-width:0">
+      <div style="background:#F2EDE2;padding:12px;border-radius:16px;transform:rotate(-1.6deg);box-shadow:0 22px 44px rgba(36,36,36,0.38)">
+        <image-slot id="hero-truck" src="https://images.pexels.com/photos/2880087/pexels-photo-2880087.jpeg?auto=compress&cs=tinysrgb&w=1000" shape="rounded" radius="9" placeholder="Truck photo — full side of the trailer, diamonds visible" style="width:100%;height:clamp(250px,32vw,400px);display:block"></image-slot>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LOCATION BANNER ============ -->
+<div style="background:#242424">
+  <div style="max-width:1180px;margin:0 auto;padding:14px clamp(20px,5vw,48px);display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+    <svg width="14" height="21" viewBox="0 0 12 18" style="flex:none"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#D63A31"></path></svg>
+    <div style="flex:1;min-width:200px">
+      <div style="font:700 9.5px 'Space Mono',monospace;letter-spacing:2px;color:rgba(255,255,255,0.6)">TODAY WE'RE PARKED AT</div>
+      <div style="font:700 clamp(15px,1.9vw,21px) 'Space Mono',monospace;color:#fff">{{ todayLocation }}</div>
+    </div>
+    <div style="flex:none;font:700 12px 'Space Mono',monospace;color:#242424;background:#fff;padding:9px 13px;border-radius:7px">{{ todayNote }}</div>
+  </div>
+</div>
+
+<!-- ============ FIND US / MAP ============ -->
+<section id="find" style="background:#242424;border-top:1px solid rgba(255,255,255,0.08)">
+  <div style="max-width:1180px;margin:0 auto;padding:clamp(40px,5vw,80px) clamp(20px,5vw,48px)">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">
+      <svg width="14" height="21" viewBox="0 0 12 18"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#D63A31"></path></svg>
+      <h2 style="margin:0;font:900 clamp(30px,4vw,52px)/1 'Passion One',Impact,sans-serif;color:#fff;letter-spacing:1px">FIND US TODAY</h2>
+    </div>
+    <p id="pin-help" style="margin:0 0 24px;font:400 clamp(13px,1.3vw,16px)/1.5 'Archivo';color:rgba(255,255,255,0.6)">This is where the truck is parked today.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:clamp(18px,2.4vw,30px);align-items:stretch">
+      <div style="flex:2 1 460px;min-width:0;border:3px solid #fff;border-radius:14px;overflow:hidden;box-shadow:0 16px 34px rgba(0,0,0,0.4)">
+        <div id="map" style="width:100%;height:clamp(300px,42vw,480px);background:#EDE7DB"></div>
+      </div>
+      <div style="flex:1 1 280px;min-width:0;display:flex;flex-direction:column;gap:14px">
+        <div style="background:#C4443C;border-radius:12px;padding:18px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:9px">
+            <svg width="13" height="20" viewBox="0 0 12 18" style="flex:none"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#fff"></path></svg>
+            <div style="font:700 9px 'Space Mono',monospace;letter-spacing:2px;color:rgba(255,255,255,0.8)">TODAY'S SPOT</div>
+          </div>
+          <div style="font:700 clamp(15px,1.5vw,18px)/1.35 'Space Mono',monospace;color:#fff">{{ todayLocation }}</div>
+          <div style="font:400 12px 'Space Mono',monospace;color:rgba(255,255,255,0.85);margin-top:6px">{{ todayNote }}</div>
+        </div>
+        <div style="background:#1E1E1E;border-radius:12px;padding:18px">
+          <div style="font:700 10px 'Space Mono',monospace;letter-spacing:2px;color:rgba(255,255,255,0.5);margin-bottom:12px">THIS WEEK</div>
+          <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.1)"><span style="font:600 13.5px 'Archivo';color:#fff">Mon – Fri</span><span style="font:700 12.5px 'Space Mono',monospace;color:#fff">6:00A – 2:00P</span></div>
+          <div style="display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.1)"><span style="font:600 13.5px 'Archivo';color:#fff">Saturday</span><span style="font:700 12.5px 'Space Mono',monospace;color:rgba(255,255,255,0.7)">CHECK SOCIALS</span></div>
+          <div style="display:flex;justify-content:space-between;padding:7px 0"><span style="font:600 13.5px 'Archivo';color:#fff">Sunday</span><span style="font:700 12.5px 'Space Mono',monospace;color:#D63A31">CLOSED</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOD GALLERY (center focus) ============ -->
+<section id="food" style="background:#F2EDE2">
+  <div style="max-width:1180px;margin:0 auto;padding:clamp(44px,5.5vw,88px) clamp(20px,5vw,48px)">
+    <div style="text-align:center;margin-bottom:26px">
+      <div style="font:700 clamp(10px,1.2vw,12px) 'Space Mono',monospace;letter-spacing:2.5px;color:#C4443C;margin-bottom:8px">STRAIGHT OFF THE TRAILER</div>
+      <h2 style="margin:0;font:900 clamp(32px,4.6vw,60px)/0.98 'Passion One',Impact,sans-serif;color:#242424;letter-spacing:0.5px">THE FOOD DOES THE TALKING</h2>
+    </div>
+    <!-- FOOD PHOTO SLOTS (TBD): drop real photos. Signature shot + supporting plates. -->
+    <div style="position:relative;border-radius:16px;overflow:hidden;box-shadow:0 16px 34px rgba(36,36,36,0.22)">
+      <image-slot id="food-chicken" src="https://loremflickr.com/900/650/roasted,chicken?lock=32" shape="rect" placeholder="Roasted chicken — the money shot" style="width:100%;height:clamp(260px,40vw,460px);display:block"></image-slot>
+      <div style="position:absolute;left:16px;bottom:16px;font:700 clamp(11px,1.2vw,14px) 'Space Mono',monospace;letter-spacing:1px;color:#fff;background:#C4443C;padding:9px 14px;border-radius:8px;box-shadow:0 6px 14px rgba(0,0,0,0.32)">THE SIGNATURE · ROASTED CHICKEN</div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:clamp(12px,1.6vw,20px);margin-top:clamp(14px,1.8vw,22px)">
+      <div>
+        <image-slot id="food-rice" src="https://loremflickr.com/500/420/fried,rice?lock=11" shape="rounded" radius="12" placeholder="Fried rice" style="width:100%;height:clamp(150px,15vw,210px);display:block"></image-slot>
+        <div style="font:700 10px 'Space Mono',monospace;letter-spacing:0.5px;color:#6B6B6B;text-align:center;margin-top:9px">FRIED RICE</div>
+      </div>
+      <div>
+        <image-slot id="food-milanesa" src="https://loremflickr.com/520/440/milanesa?lock=2" shape="rounded" radius="12" placeholder="Milanesa" style="width:100%;height:clamp(150px,15vw,210px);display:block"></image-slot>
+        <div style="font:700 10px 'Space Mono',monospace;letter-spacing:0.5px;color:#6B6B6B;text-align:center;margin-top:9px">MILANESA</div>
+      </div>
+      <div>
+        <image-slot id="food-croq" src="https://loremflickr.com/520/440/croquettes,fried?lock=6" shape="rounded" radius="12" placeholder="Croquettes" style="width:100%;height:clamp(150px,15vw,210px);display:block"></image-slot>
+        <div style="font:700 10px 'Space Mono',monospace;letter-spacing:0.5px;color:#6B6B6B;text-align:center;margin-top:9px">CROQUETTES</div>
+      </div>
+      <div>
+        <image-slot id="food-fries" src="https://images.pexels.com/photos/4109234/pexels-photo-4109234.jpeg?auto=compress&cs=tinysrgb&w=600" shape="rounded" radius="12" placeholder="Fries" style="width:100%;height:clamp(150px,15vw,210px);display:block"></image-slot>
+        <div style="font:700 10px 'Space Mono',monospace;letter-spacing:0.5px;color:#6B6B6B;text-align:center;margin-top:9px">FRIES</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MENU ============ -->
+<section id="menu" style="background:#242424">
+  <div style="max-width:1180px;margin:0 auto;padding:clamp(44px,5.5vw,88px) clamp(20px,5vw,48px)">
+    <div style="text-align:center;margin-bottom:6px">
+      <h2 style="margin:0;font:900 clamp(34px,5vw,64px)/1 'Passion One',Impact,sans-serif;color:#fff;letter-spacing:2px">THE MENU</h2>
+    </div>
+    <p style="margin:0 0 26px;font:400 clamp(13px,1.3vw,16px)/1.4 'Archivo';color:rgba(255,255,255,0.6);text-align:center">Chicken by the pound or half. The rest, by the plate — cooked on the trailer.</p>
+
+    <!-- SIGNATURE (spans full width) -->
+    <div style="background:#C4443C;border-radius:16px;padding:clamp(20px,2.6vw,32px);margin-bottom:clamp(14px,1.8vw,22px);display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:space-between">
+      <div style="flex:1 1 300px;min-width:0">
+        <div style="display:inline-flex;align-items:center;gap:8px;font:700 10px 'Space Mono',monospace;letter-spacing:1.5px;color:rgba(255,255,255,0.9);margin-bottom:10px"><svg width="10" height="15" viewBox="0 0 12 18"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#fff"></path></svg>THE SIGNATURE · COMES WITH FRIES</div>
+        <div style="font:900 clamp(28px,3.4vw,46px)/1 'Passion One',Impact,sans-serif;color:#fff;letter-spacing:0.5px;margin-bottom:8px">ROASTED CHICKEN</div>
+        <p style="margin:0;font:400 clamp(13px,1.3vw,15px)/1.45 'Archivo';color:rgba(255,255,255,0.9);max-width:420px">Roasted on the trailer till the skin crackles. Every order comes with a side of fries.</p>
+      </div>
+      <div style="flex:none;display:flex;gap:10px">
+        <div style="text-align:center;background:#fff;border-radius:10px;padding:14px 18px"><div style="font:700 clamp(18px,2vw,24px) 'Space Mono',monospace;color:#242424">12.00</div><div style="font:700 10px 'Space Mono',monospace;letter-spacing:1px;color:#C4443C;margin-top:3px">1 LB</div></div>
+        <div style="text-align:center;background:#fff;border-radius:10px;padding:14px 18px"><div style="font:700 clamp(18px,2vw,24px) 'Space Mono',monospace;color:#242424">6.50</div><div style="font:700 10px 'Space Mono',monospace;letter-spacing:1px;color:#C4443C;margin-top:3px">½ LB</div></div>
+      </div>
+    </div>
+
+    <!-- OTHER PLATES — 2 columns on desktop, 1 on mobile (final items TBD) -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:0 clamp(28px,4vw,56px)">
+      <div style="display:flex;align-items:baseline;gap:12px;padding:16px 2px;border-bottom:1px dashed rgba(255,255,255,0.18)">
+        <div style="flex:1;min-width:0"><div style="font:700 clamp(18px,1.9vw,22px) 'Passion One',Impact,sans-serif;letter-spacing:0.5px;color:#fff">ASIAN FRIED RICE</div><div style="font:400 clamp(12px,1.2vw,13.5px)/1.4 'Archivo';color:rgba(255,255,255,0.55)">Wok-style with egg and vegetables. Holds up all shift.</div></div>
+        <div style="flex:none;text-align:right"><div style="font:700 15px 'Space Mono',monospace;color:#fff">9.00</div><div style="font:400 9px 'Space Mono',monospace;letter-spacing:1px;color:rgba(255,255,255,0.45)">PLATE</div></div>
+      </div>
+      <div style="display:flex;align-items:baseline;gap:12px;padding:16px 2px;border-bottom:1px dashed rgba(255,255,255,0.18)">
+        <div style="flex:1;min-width:0"><div style="font:700 clamp(18px,1.9vw,22px) 'Passion One',Impact,sans-serif;letter-spacing:0.5px;color:#fff">MILANESA</div><div style="font:400 clamp(12px,1.2vw,13.5px)/1.4 'Archivo';color:rgba(255,255,255,0.55)">Breaded steak, pounded thin, fried crisp to order.</div></div>
+        <div style="flex:none;text-align:right"><div style="font:700 15px 'Space Mono',monospace;color:#fff">13.00</div><div style="font:400 9px 'Space Mono',monospace;letter-spacing:1px;color:rgba(255,255,255,0.45)">PLATE</div></div>
+      </div>
+      <div style="display:flex;align-items:baseline;gap:12px;padding:16px 2px;border-bottom:1px dashed rgba(255,255,255,0.18)">
+        <div style="flex:1;min-width:0"><div style="font:700 clamp(18px,1.9vw,22px) 'Passion One',Impact,sans-serif;letter-spacing:0.5px;color:#fff">CROQUETTES</div><div style="font:400 clamp(12px,1.2vw,13.5px)/1.4 'Archivo';color:rgba(255,255,255,0.55)">Golden-fried, easy to eat with one hand on the wheel.</div></div>
+        <div style="flex:none;text-align:right"><div style="font:700 15px 'Space Mono',monospace;color:#fff">10.00</div><div style="font:400 9px 'Space Mono',monospace;letter-spacing:1px;color:rgba(255,255,255,0.45)">PLATE</div></div>
+      </div>
+      <div style="display:flex;align-items:baseline;gap:12px;padding:16px 2px;border-bottom:1px dashed rgba(255,255,255,0.18)">
+        <div style="flex:1;min-width:0"><div style="font:700 clamp(18px,1.9vw,22px) 'Passion One',Impact,sans-serif;letter-spacing:0.5px;color:#fff">FRIES</div><div style="font:400 clamp(12px,1.2vw,13.5px)/1.4 'Archivo';color:rgba(255,255,255,0.55)">Hot, salty, by the basket.</div></div>
+        <div style="flex:none;text-align:right"><div style="font:700 15px 'Space Mono',monospace;color:#fff">4.00</div><div style="font:400 9px 'Space Mono',monospace;letter-spacing:1px;color:rgba(255,255,255,0.45)">BASKET</div></div>
+      </div>
+      <div style="display:flex;align-items:baseline;gap:12px;padding:16px 2px;border-bottom:1px dashed rgba(255,255,255,0.18)">
+        <div style="flex:1;min-width:0"><div style="font:700 clamp(18px,1.9vw,22px) 'Passion One',Impact,sans-serif;letter-spacing:0.5px;color:#fff">DRINKS</div><div style="font:400 clamp(12px,1.2vw,13.5px)/1.4 'Archivo';color:rgba(255,255,255,0.55)">Cold sodas &amp; bottled water.</div></div>
+        <div style="flex:none;text-align:right"><div style="font:700 15px 'Space Mono',monospace;color:#fff">2.00 <span style="font-weight:400;color:rgba(255,255,255,0.55)">/ 1.50</span></div><div style="font:400 9px 'Space Mono',monospace;letter-spacing:1px;color:rgba(255,255,255,0.45)">SODA / WATER</div></div>
+      </div>
+    </div>
+    <div style="border-top:2px dashed rgba(255,255,255,0.22);margin-top:14px;padding-top:14px;font:400 clamp(10px,1.1vw,12px) 'Space Mono',monospace;letter-spacing:1.5px;color:rgba(255,255,255,0.5);text-align:center">CASH &amp; CARD · COOKED ON THE TRAILER</div>
+  </div>
+</section>
+
+<!-- ============ VALUE ============ -->
+<section style="background:#fff">
+  <div style="max-width:1180px;margin:0 auto;padding:clamp(44px,5.5vw,84px) clamp(20px,5vw,48px)">
+    <h2 style="margin:0 0 clamp(22px,3vw,40px);font:900 clamp(28px,3.8vw,50px)/1 'Passion One',Impact,sans-serif;color:#C4443C;letter-spacing:1px;text-align:center">BUILT FOR THE OIL FIELD</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:clamp(20px,2.6vw,36px)">
+      <div><div style="font:700 clamp(28px,3vw,40px) 'Space Mono',monospace;color:#D63A31;margin-bottom:8px">01</div><div style="font:700 clamp(16px,1.6vw,19px) 'Archivo';color:#242424;margin-bottom:5px">A pound goes all day</div><div style="font:400 clamp(13px,1.3vw,15px)/1.5 'Archivo';color:#6B6B6B">Breakfast, lunch, and the drive back — out of one box.</div></div>
+      <div><div style="font:700 clamp(28px,3vw,40px) 'Space Mono',monospace;color:#D63A31;margin-bottom:8px">02</div><div style="font:700 clamp(16px,1.6vw,19px) 'Archivo';color:#242424;margin-bottom:5px">One window, no detours</div><div style="font:400 clamp(13px,1.3vw,15px)/1.5 'Archivo';color:#6B6B6B">Chicken, rice, sides, and drinks in a single stop.</div></div>
+      <div><div style="font:700 clamp(28px,3vw,40px) 'Space Mono',monospace;color:#D63A31;margin-bottom:8px">03</div><div style="font:700 clamp(16px,1.6vw,19px) 'Archivo';color:#242424;margin-bottom:5px">Heavy portions, light ticket</div><div style="font:400 clamp(13px,1.3vw,15px)/1.5 'Archivo';color:#6B6B6B">A full day of food for less than a sit-down lunch.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOURS + SOCIAL ============ -->
+<section id="hours" style="background:#C4443C">
+  <div style="max-width:1180px;margin:0 auto;padding:clamp(44px,5.5vw,84px) clamp(20px,5vw,48px);display:flex;flex-wrap:wrap;gap:clamp(24px,3vw,48px)">
+    <div style="flex:1 1 320px;min-width:0">
+      <h2 style="margin:0 0 16px;font:900 clamp(28px,3.6vw,48px)/1 'Passion One',Impact,sans-serif;color:#fff;letter-spacing:1px">HOURS</h2>
+      <!-- HOURS TBD: confirm daily times & Saturday -->
+      <div style="background:#fff;border-radius:12px;padding:6px 20px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;padding:14px 0;border-bottom:1px solid rgba(36,36,36,0.1)"><div style="font:700 clamp(14px,1.5vw,17px) 'Archivo';color:#242424">Monday – Friday</div><div style="font:700 clamp(13px,1.3vw,15px) 'Space Mono',monospace;color:#242424">6:00 AM – 2:00 PM</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;padding:14px 0;border-bottom:1px solid rgba(36,36,36,0.1)"><div style="font:700 clamp(14px,1.5vw,17px) 'Archivo';color:#242424">Saturday</div><div style="font:700 clamp(13px,1.3vw,15px) 'Space Mono',monospace;color:#242424">CHECK SOCIALS</div></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;padding:14px 0"><div style="font:700 clamp(14px,1.5vw,17px) 'Archivo';color:#242424">Sunday</div><div style="font:700 clamp(13px,1.3vw,15px) 'Space Mono',monospace;color:#D63A31">CLOSED</div></div>
+      </div>
+    </div>
+    <div style="flex:1 1 320px;min-width:0">
+      <h2 style="margin:0 0 16px;font:900 clamp(28px,3.6vw,48px)/1 'Passion One',Impact,sans-serif;color:#fff;letter-spacing:1px">FOLLOW THE TRUCK</h2>
+      <!-- SOCIAL LINKS TBD: add real profile URLs -->
+      <div style="display:flex;flex-direction:column;gap:11px">
+        <a href="#" style="text-align:center;font:700 clamp(16px,1.7vw,20px)/1 'Passion One',Impact,sans-serif;letter-spacing:1.5px;color:#fff;border:2.5px solid #fff;padding:15px 12px;border-radius:8px;box-shadow:4px 4px 0 rgba(36,36,36,0.3);text-decoration:none">FACEBOOK</a>
+        <a href="#" style="text-align:center;font:700 clamp(16px,1.7vw,20px)/1 'Passion One',Impact,sans-serif;letter-spacing:1.5px;color:#fff;border:2.5px solid #fff;padding:15px 12px;border-radius:8px;box-shadow:4px 4px 0 rgba(36,36,36,0.3);text-decoration:none">TIKTOK</a>
+        <a href="#" style="text-align:center;font:700 clamp(16px,1.7vw,20px)/1 'Passion One',Impact,sans-serif;letter-spacing:1.5px;color:#fff;border:2.5px solid #fff;padding:15px 12px;border-radius:8px;box-shadow:4px 4px 0 rgba(36,36,36,0.3);text-decoration:none">INSTAGRAM</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer style="background:#242424">
+  <div style="max-width:1180px;margin:0 auto;padding:clamp(34px,4vw,56px) clamp(20px,5vw,48px);display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;justify-content:space-between">
+    <div style="flex:1 1 300px;min-width:0">
+      <img src="assets/chicoco-logo-white.png" alt="Chicoco" style="width:96px;height:auto;margin-bottom:14px">
+      <p style="margin:0;font:400 clamp(12px,1.3vw,14px)/1.5 'Archivo';color:rgba(255,255,255,0.6);max-width:360px">Chicago-style roasted chicken, parked in the Permian Basin. Odessa – Midland, Texas.</p>
+    </div>
+    <div style="flex:none;text-align:right">
+      <div style="font:700 clamp(13px,1.4vw,16px) 'Space Mono',monospace;color:#fff;margin-bottom:6px">{{ phone }}</div>
+      <div style="font:400 10px 'Space Mono',monospace;letter-spacing:1px;color:rgba(255,255,255,0.45)">MON–FRI · CLOSED SUNDAY</div>
+      <a href="./Chicoco%20-%20Admin.dc.html" style="display:inline-block;margin-top:14px;font:700 10px 'Space Mono',monospace;letter-spacing:1px;color:rgba(255,255,255,0.6);text-decoration:none;border:1px solid rgba(255,255,255,0.25);padding:6px 10px;border-radius:6px">OWNER LOGIN ↗</a>
+      <div style="font:400 10px 'Space Mono',monospace;letter-spacing:1px;color:rgba(255,255,255,0.35);margin-top:12px">© 2026 CHICOCO</div>
+    </div>
+  </div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;todayLocation&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Hwy 191 @ FM 1788 — Midland side&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Today's spot&quot;},&quot;todayNote&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;6 AM – 2 PM&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Today's spot&quot;},&quot;phone&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;(432) 555‑0142&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contact&quot;}}">
+class Component extends DCLogic {
+  componentDidMount() { this._initMap(0); var self = this; window.addEventListener('storage', function (e) { if (e.key === 'chicoco_site') self.forceUpdate(); }); }
+  _initMap(tries) {
+    if (!window.L) { if (tries < 80) setTimeout(() => this._initMap(tries + 1), 100); return; }
+    var el = document.getElementById('map'); if (!el || el._ci) return; el._ci = true;
+    var KEY = 'chicoco_pin'; var DEFAULT = [31.906, -102.06];
+    var saved = null; try { saved = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) {}
+    var start = (saved && typeof saved.lat === 'number') ? [saved.lat, saved.lng] : DEFAULT;
+    var map = L.map(el, { zoomControl: true, scrollWheelZoom: false }).setView(start, 11);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', { subdomains: 'abcd', maxZoom: 19, attribution: '&copy; OpenStreetMap, &copy; CARTO' }).addTo(map);
+    var icon = L.divIcon({ className: '', html: '<div style="width:17px;height:17px;background:#D63A31;border:2.5px solid #fff;transform:rotate(45deg);box-shadow:0 1px 6px rgba(0,0,0,.5)"></div>', iconSize: [17, 17], iconAnchor: [8.5, 8.5] });
+    var marker = L.marker(start, { draggable: true, icon: icon }).addTo(map);
+    var readout = document.getElementById('pin-readout'), help = document.getElementById('pin-help'), toggle = document.getElementById('pin-owner');
+    var owner = false;
+    function fmt(ll) { return ll.lat.toFixed(4) + ',  ' + ll.lng.toFixed(4); }
+    function render() { if (readout) readout.textContent = fmt(marker.getLatLng()); }
+    function save(ll) { try { localStorage.setItem(KEY, JSON.stringify({ lat: ll.lat, lng: ll.lng })); } catch (e) {} marker.setLatLng(ll); render(); }
+    render();
+    marker.on('dragend', function () { if (owner) save(marker.getLatLng()); });
+    map.on('click', function (e) { if (owner) save(e.latlng); });
+    function setOwner(on) {
+      owner = on;
+      if (marker.dragging) { owner ? marker.dragging.enable() : marker.dragging.disable(); }
+      el.style.cursor = owner ? 'crosshair' : '';
+      if (help) help.textContent = owner ? "Owner mode — tap the map or drag the pin to set today's spot." : "This is where the truck is parked today.";
+      if (toggle) { toggle.textContent = owner ? 'DONE' : 'OWNER'; toggle.style.background = owner ? '#242424' : '#FFFFFF'; toggle.style.color = owner ? '#FFFFFF' : '#C4443C'; }
+    }
+    setOwner(false);
+    if (/[?&]owner=1/.test(location.search || '')) setOwner(true);
+    if (toggle) toggle.addEventListener('click', function () { setOwner(!owner); });
+    setTimeout(function () { map.invalidateSize(); }, 250);
+  }
+  renderVals() {
+    var s = {}; try { s = JSON.parse(localStorage.getItem('chicoco_site') || '{}'); } catch (e) {}
+    return {
+      todayLocation: s.address || this.props.todayLocation || "Hwy 191 @ FM 1788 — Midland side",
+      todayNote: s.note || this.props.todayNote || "6 AM – 2 PM",
+      phone: s.phone || this.props.phone || "(432) 555‑0142",
+    };
+  }
+}
+</script>
+</body>
+</html>

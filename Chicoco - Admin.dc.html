@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="./image-slot.js"></script>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#1b1b1b;font-family:'Archivo',Arial,sans-serif;-webkit-font-smoothing:antialiased;color:#fff}
+img{display:block;max-width:100%}
+a{color:inherit}
+input{font-family:'Space Mono',monospace}
+input::placeholder{color:rgba(255,255,255,0.28)}
+</style>
+</helmet>
+
+<!-- ================= LOGIN (mock auth — real build gates this server-side) ================= -->
+<sc-if value="{{ notAuthed }}" hint-placeholder-val="{{ true }}">
+  <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px">
+    <div style="width:100%;max-width:380px;background:#242424;border:1px solid rgba(255,255,255,0.1);border-radius:18px;padding:36px 30px;box-shadow:0 30px 60px rgba(0,0,0,0.45)">
+      <img src="assets/chicoco-logo-white.png" alt="Chicoco" style="width:70px;margin:0 auto 20px;display:block">
+      <div style="text-align:center;font:700 10px 'Space Mono',monospace;letter-spacing:2.5px;color:#D63A31;margin-bottom:6px">OWNER DASHBOARD</div>
+      <div style="text-align:center;font:800 21px 'Archivo';color:#fff;margin-bottom:22px">Log in to manage the truck</div>
+      <label style="display:block;font:700 9px 'Space Mono',monospace;letter-spacing:1.5px;color:rgba(255,255,255,0.5);margin-bottom:7px">PASSWORD</label>
+      <input id="adm-pw" type="password" placeholder="••••••••" style="width:100%;background:#1b1b1b;border:1px solid rgba(255,255,255,0.16);border-radius:9px;padding:13px 14px;font-size:15px;color:#fff;outline:none">
+      <div id="adm-err" style="display:none;font:600 12px 'Archivo';color:#ff8a80;margin-top:8px">Wrong password — try again.</div>
+      <button onClick="{{ onLogin }}" style="width:100%;margin-top:14px;font:700 13px 'Archivo';letter-spacing:1px;color:#fff;background:#D63A31;border:none;padding:14px;border-radius:9px;cursor:pointer">LOG IN</button>
+      <div style="text-align:center;font:400 11px 'Space Mono',monospace;color:rgba(255,255,255,0.35);margin-top:18px">demo password: chicoco2026</div>
+    </div>
+  </div>
+</sc-if>
+
+<!-- ================= DASHBOARD ================= -->
+<sc-if value="{{ authed }}" hint-placeholder-val="{{ false }}">
+  <div>
+    <div style="position:sticky;top:0;z-index:1100;background:#242424;border-bottom:1px solid rgba(255,255,255,0.1);padding:13px clamp(16px,4vw,40px);display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+      <img src="assets/chicoco-logo-white.png" alt="Chicoco" style="width:42px;flex:none">
+      <div style="flex:1;min-width:0"><div style="font:700 9px 'Space Mono',monospace;letter-spacing:2px;color:#D63A31">OWNER DASHBOARD</div><div style="font:800 15px 'Archivo';color:#fff">Manage the truck</div></div>
+      <a href="./Chicoco%20-%20Truck%20Paint.dc.html" target="_blank" style="font:700 10px 'Space Mono',monospace;letter-spacing:0.5px;color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,0.2);padding:9px 11px;border-radius:8px">VIEW SITE ↗</a>
+      <button onClick="{{ onLogout }}" style="font:700 10px 'Space Mono',monospace;letter-spacing:0.5px;color:#242424;background:#fff;border:none;padding:10px 12px;border-radius:8px;cursor:pointer">LOG OUT</button>
+    </div>
+
+    <div style="max-width:1000px;margin:0 auto;padding:clamp(22px,4vw,44px) clamp(16px,4vw,40px);display:flex;flex-direction:column;gap:20px">
+
+      <!-- TODAY'S SPOT -->
+      <div style="background:#242424;border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:clamp(20px,3vw,30px)">
+        <div style="font:700 10px 'Space Mono',monospace;letter-spacing:2px;color:#D63A31;margin-bottom:4px">TODAY'S SPOT</div>
+        <div style="font:800 20px 'Archivo';color:#fff;margin-bottom:4px">Where's the truck today?</div>
+        <div style="font:400 13px/1.5 'Archivo';color:rgba(255,255,255,0.5);margin-bottom:20px">Type the plain-English address customers should see (no coordinates), and drop the pin on the map. Saves to both site versions.</div>
+        <div style="display:flex;flex-wrap:wrap;gap:22px">
+          <div style="flex:1 1 300px;min-width:0;display:flex;flex-direction:column;gap:15px">
+            <div>
+              <label style="display:block;font:700 9px 'Space Mono',monospace;letter-spacing:1.5px;color:rgba(255,255,255,0.5);margin-bottom:7px">ADDRESS / CROSS-STREETS</label>
+              <input id="adm-addr" type="text" defaultValue="{{ addr }}" placeholder="e.g. Hwy 191 @ FM 1788 — Midland side" style="width:100%;background:#1b1b1b;border:1px solid rgba(255,255,255,0.16);border-radius:9px;padding:12px 13px;font-size:14px;color:#fff;outline:none">
+            </div>
+            <div>
+              <label style="display:block;font:700 9px 'Space Mono',monospace;letter-spacing:1.5px;color:rgba(255,255,255,0.5);margin-bottom:7px">HOURS / NOTE (SMALL PILL)</label>
+              <input id="adm-note" type="text" defaultValue="{{ note }}" placeholder="e.g. 6 AM – 2 PM" style="width:100%;background:#1b1b1b;border:1px solid rgba(255,255,255,0.16);border-radius:9px;padding:12px 13px;font-size:14px;color:#fff;outline:none">
+            </div>
+            <div>
+              <label style="display:block;font:700 9px 'Space Mono',monospace;letter-spacing:1.5px;color:rgba(255,255,255,0.5);margin-bottom:7px">PHONE</label>
+              <input id="adm-phone" type="text" defaultValue="{{ phone }}" placeholder="(432) 555‑0142" style="width:100%;background:#1b1b1b;border:1px solid rgba(255,255,255,0.16);border-radius:9px;padding:12px 13px;font-size:14px;color:#fff;outline:none">
+            </div>
+            <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+              <button onClick="{{ onSave }}" style="font:700 12px 'Archivo';letter-spacing:1px;color:#fff;background:#D63A31;border:none;padding:13px 22px;border-radius:9px;cursor:pointer">SAVE CHANGES</button>
+              <sc-if value="{{ saved }}" hint-placeholder-val="{{ false }}"><div style="font:700 12px 'Space Mono',monospace;color:#4ade80">Saved ✓ live on the site</div></sc-if>
+            </div>
+          </div>
+          <div style="flex:1 1 300px;min-width:0">
+            <div style="border:2px solid rgba(255,255,255,0.14);border-radius:12px;overflow:hidden"><div id="adm-map" style="width:100%;height:270px;background:#EDE7DB"></div></div>
+            <div style="font:400 11px 'Space Mono',monospace;color:rgba(255,255,255,0.4);margin-top:9px;text-align:center">Tap the map or drag the pin to set the spot.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PHOTOS -->
+      <div style="background:#242424;border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:clamp(20px,3vw,30px)">
+        <div style="font:700 10px 'Space Mono',monospace;letter-spacing:2px;color:#D63A31;margin-bottom:4px">PHOTOS</div>
+        <div style="font:800 20px 'Archivo';color:#fff;margin-bottom:4px">Replace or add photos</div>
+        <div style="font:400 13px/1.5 'Archivo';color:rgba(255,255,255,0.5);margin-bottom:20px">Drag a photo onto any slot (or click to browse) to replace it — it updates the live site right away. The same photos power both versions. Current shots are temporary stock.</div>
+        <div style="font:700 9px 'Space Mono',monospace;letter-spacing:1px;color:rgba(255,255,255,0.45);margin-bottom:9px">TRUCK / HERO</div>
+        <image-slot id="hero-truck" src="https://images.pexels.com/photos/2880087/pexels-photo-2880087.jpeg?auto=compress&cs=tinysrgb&w=1000" shape="rounded" radius="11" placeholder="Truck photo" style="width:100%;height:230px;display:block;margin-bottom:22px"></image-slot>
+        <div style="font:700 9px 'Space Mono',monospace;letter-spacing:1px;color:rgba(255,255,255,0.45);margin-bottom:9px">THE FOOD</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:13px">
+          <div><image-slot id="food-chicken" src="https://loremflickr.com/600/480/roasted,chicken?lock=32" shape="rounded" radius="11" placeholder="Roasted chicken" style="width:100%;height:130px;display:block"></image-slot><div style="font:700 9px 'Space Mono',monospace;letter-spacing:0.5px;color:rgba(255,255,255,0.5);text-align:center;margin-top:8px">ROASTED CHICKEN</div></div>
+          <div><image-slot id="food-rice" src="https://loremflickr.com/500/420/fried,rice?lock=11" shape="rounded" radius="11" placeholder="Fried rice" style="width:100%;height:130px;display:block"></image-slot><div style="font:700 9px 'Space Mono',monospace;letter-spacing:0.5px;color:rgba(255,255,255,0.5);text-align:center;margin-top:8px">FRIED RICE</div></div>
+          <div><image-slot id="food-milanesa" src="https://loremflickr.com/520/440/milanesa?lock=2" shape="rounded" radius="11" placeholder="Milanesa" style="width:100%;height:130px;display:block"></image-slot><div style="font:700 9px 'Space Mono',monospace;letter-spacing:0.5px;color:rgba(255,255,255,0.5);text-align:center;margin-top:8px">MILANESA</div></div>
+          <div><image-slot id="food-croq" src="https://loremflickr.com/520/440/croquettes,fried?lock=6" shape="rounded" radius="11" placeholder="Croquettes" style="width:100%;height:130px;display:block"></image-slot><div style="font:700 9px 'Space Mono',monospace;letter-spacing:0.5px;color:rgba(255,255,255,0.5);text-align:center;margin-top:8px">CROQUETTES</div></div>
+          <div><image-slot id="food-fries" src="https://images.pexels.com/photos/4109234/pexels-photo-4109234.jpeg?auto=compress&cs=tinysrgb&w=600" shape="rounded" radius="11" placeholder="Fries" style="width:100%;height:130px;display:block"></image-slot><div style="font:700 9px 'Space Mono',monospace;letter-spacing:0.5px;color:rgba(255,255,255,0.5);text-align:center;margin-top:8px">FRIES</div></div>
+        </div>
+      </div>
+
+      <div style="font:400 11px/1.6 'Space Mono',monospace;color:rgba(255,255,255,0.3);text-align:center;padding:4px 0 10px">This is a demo login (client-side). In production the /admin route sits behind a real Chicoco owner account.</div>
+
+    </div>
+  </div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { authed: (function () { try { return sessionStorage.getItem('chicoco_admin') === '1'; } catch (e) { return false; } })(), saved: false };
+  _site() { try { return JSON.parse(localStorage.getItem('chicoco_site') || '{}'); } catch (e) { return {}; } }
+  componentDidMount() { if (this.state.authed) this._initMap(0); }
+  componentDidUpdate(prevProps, prevState) { if (this.state.authed && !prevState.authed) this._initMap(0); }
+  login() {
+    var el = document.getElementById('adm-pw'); var v = el ? el.value : '';
+    if (v.trim().toLowerCase() === 'chicoco2026') { try { sessionStorage.setItem('chicoco_admin', '1'); } catch (e) {} this.setState({ authed: true }); }
+    else { var er = document.getElementById('adm-err'); if (er) er.style.display = 'block'; }
+  }
+  logout() { try { sessionStorage.removeItem('chicoco_admin'); } catch (e) {} this.setState({ authed: false }); }
+  save() {
+    var g = function (id) { var el = document.getElementById(id); return el ? el.value : ''; };
+    var site = this._site();
+    var a = g('adm-addr'); var n = g('adm-note'); var p = g('adm-phone');
+    if (a) site.address = a; if (n) site.note = n; if (p) site.phone = p;
+    try { localStorage.setItem('chicoco_site', JSON.stringify(site)); } catch (e) {}
+    this.setState({ saved: true });
+    var self = this; setTimeout(function () { self.setState({ saved: false }); }, 2400);
+  }
+  _initMap(tries) {
+    if (!window.L) { if (tries < 80) setTimeout(() => this._initMap(tries + 1), 100); return; }
+    var el = document.getElementById('adm-map'); if (!el || el._ci) return; el._ci = true;
+    var KEY = 'chicoco_pin'; var DEF = [31.906, -102.06];
+    var saved = null; try { saved = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) {}
+    var start = (saved && typeof saved.lat === 'number') ? [saved.lat, saved.lng] : DEF;
+    var map = L.map(el, { zoomControl: true, scrollWheelZoom: false }).setView(start, 11);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', { subdomains: 'abcd', maxZoom: 19, attribution: '&copy; OpenStreetMap, &copy; CARTO' }).addTo(map);
+    var icon = L.divIcon({ className: '', html: '<div style="width:17px;height:17px;background:#D63A31;border:2.5px solid #fff;transform:rotate(45deg);box-shadow:0 1px 6px rgba(0,0,0,.5)"></div>', iconSize: [17, 17], iconAnchor: [8.5, 8.5] });
+    var marker = L.marker(start, { draggable: true, icon: icon }).addTo(map);
+    function save(ll) { try { localStorage.setItem(KEY, JSON.stringify({ lat: ll.lat, lng: ll.lng })); } catch (e) {} marker.setLatLng(ll); }
+    marker.on('dragend', function () { save(marker.getLatLng()); });
+    map.on('click', function (e) { save(e.latlng); });
+    setTimeout(function () { map.invalidateSize(); }, 250);
+  }
+  renderVals() {
+    var s = this._site();
+    return {
+      notAuthed: !this.state.authed,
+      authed: this.state.authed,
+      saved: this.state.saved,
+      addr: s.address || "Hwy 191 @ FM 1788 — Midland side",
+      note: s.note || "6 AM – 2 PM",
+      phone: s.phone || "(432) 555‑0142",
+      onLogin: () => this.login(),
+      onSave: () => this.save(),
+      onLogout: () => this.logout(),
+    };
+  }
+}
+</script>
+</body>
+</html>
