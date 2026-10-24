@@ -8,3 +8,7 @@ screenshots/
 # OS cruft
 .DS_Store
 Thumbs.db
+
+# Raw photos / screenshots from the owner (private texts, originals).
+# Web-ready crops live in assets/img/.
+Photos/

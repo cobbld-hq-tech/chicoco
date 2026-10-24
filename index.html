@@ -3,282 +3,461 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Chicoco — Concept Preview</title>
-<meta name="description" content="Concept preview for Chicoco — two homepage directions for a Chicago-style roasted-chicken food truck in the Permian Basin, Texas.">
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="assets/chicoco-logo.png">
+<title>Chicoco · Charcoal-Roasted Chicken · Odessa, TX</title>
+<meta name="description" content="Charcoal-roasted whole chickens with sides made fresh daily for lunch. Chicoco food truck at 3226 W 10th St, Odessa, TX. Mon–Fri, 11 AM – 2:30 PM.">
+<meta name="theme-color" content="#C4443C">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Chicoco · Charcoal-Roasted Chicken">
+<meta property="og:description" content="Quarter chicken, fried rice, elote and salsa for $14. Mon–Fri lunch at 3226 W 10th St, Odessa, TX.">
+<meta property="og:image" content="assets/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
-<link href="https://fonts.googleapis.com/css2?family=Passion+One:wght@700;900&family=Space+Mono:wght@400;700&family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&amp;family=Passion+One:wght@700;900&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FoodEstablishment",
+  "name": "Chicoco",
+  "description": "Charcoal-roasted whole chickens with sides made fresh daily for lunchtime.",
+  "servesCuisine": "Roasted chicken",
+  "telephone": "+1-432-202-3792",
+  "image": "assets/og-image.jpg",
+  "priceRange": "$",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "3226 W 10th St",
+    "addressLocality": "Odessa",
+    "addressRegion": "TX",
+    "postalCode": "79763",
+    "addressCountry": "US"
+  },
+  "geo": { "@type": "GeoCoordinates", "latitude": 31.84016, "longitude": -102.40660 },
+  "openingHoursSpecification": [{
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    "opens": "11:00",
+    "closes": "14:30"
+  }],
+  "sameAs": ["https://www.facebook.com/people/Chicoco/61594992314435/"]
+}
+</script>
 <style>
-  :root{
-    --red:#C4443C;
-    --ink:#242424;
-    --bar:#1c1c1c;
-    --line:rgba(255,255,255,.14);
-    --mut:rgba(255,255,255,.55);
-  }
-  *{box-sizing:border-box}
-  html,body{margin:0;height:100%}
-  body{
-    background:#e9e6df;
-    font-family:'Archivo',Arial,sans-serif;
-    color:var(--ink);
-    -webkit-font-smoothing:antialiased;
-    display:flex;flex-direction:column;min-height:100%;
-  }
+:root{--red:#C4443C;--red-hot:#D63A31;--ink:#242424;--ink-2:#1E1E1E;--cream:#F2EDE2;--brown:#4A443C}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{margin:0;background:var(--red);font-family:'Archivo',Arial,sans-serif;-webkit-font-smoothing:antialiased;color:var(--ink)}
+img{display:block;max-width:100%}
+a{color:inherit}
+h1,h2,h3{margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding-left:clamp(16px,5vw,48px);padding-right:clamp(16px,5vw,48px)}
+.diamond{position:absolute;pointer-events:none}
+.mono{font-family:'Space Mono',monospace}
+.display{font-family:'Passion One',Impact,sans-serif}
 
-  /* ---------- Control bar ---------- */
-  .bar{
-    position:sticky;top:0;z-index:50;
-    background:var(--bar);color:#fff;
-    border-bottom:2px solid rgba(0,0,0,.3);
-    display:flex;align-items:center;gap:18px;flex-wrap:wrap;
-    padding:11px clamp(14px,3vw,28px);
-  }
-  .brand{display:flex;align-items:center;gap:11px;flex:none}
-  .brand img{width:40px;height:auto;display:block}
-  .brand .t{line-height:1.05}
-  .brand .t b{font:900 17px 'Passion One',Impact,sans-serif;letter-spacing:.5px;display:block}
-  .brand .t span{font:700 9px 'Space Mono',monospace;letter-spacing:2px;color:var(--mut)}
+/* keyboard focus, visible on both red and dark surfaces */
+a:focus-visible,button:focus-visible{outline:3px solid #fff;outline-offset:3px;border-radius:4px}
+.on-light a:focus-visible{outline-color:var(--red)}
 
-  .controls{display:flex;gap:16px;flex-wrap:wrap;flex:1;justify-content:center}
-  .group{display:flex;align-items:center;gap:9px}
-  .group>.lab{font:700 9px 'Space Mono',monospace;letter-spacing:2px;color:var(--mut)}
-  .seg{display:flex;background:rgba(255,255,255,.08);border:1px solid var(--line);border-radius:10px;padding:3px}
-  .seg button{
-    appearance:none;border:0;background:transparent;color:rgba(255,255,255,.72);
-    font:700 12.5px 'Archivo';letter-spacing:.3px;cursor:pointer;
-    padding:8px 15px;border-radius:7px;transition:.15s;white-space:nowrap;
-  }
-  .seg button:hover{color:#fff}
-  .seg button[aria-pressed="true"]{background:var(--red);color:#fff;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+/* ---------- header ---------- */
+.site-header{position:sticky;top:0;z-index:1100;background:var(--red);border-bottom:2px solid rgba(0,0,0,.14)}
+.site-header .wrap{padding-top:10px;padding-bottom:10px;display:flex;align-items:center;gap:14px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;flex:none}
+.brand .mark{height:46px;width:auto}
+.brand .word{height:22px;width:auto}
+.nav{display:flex;gap:clamp(12px,2.2vw,28px);flex:1;min-width:0;margin-left:10px}
+.nav a{font:700 13px 'Archivo';letter-spacing:1px;color:#fff;text-decoration:none;padding:2px 0;border-bottom:2px solid transparent;transition:border-color .15s ease}
+.nav a:hover{border-bottom-color:#fff}
+.cta{flex:none;margin-left:auto;font:700 12.5px 'Archivo';letter-spacing:1px;color:var(--red);background:#fff;padding:10px 15px;border-radius:8px;text-decoration:none;box-shadow:3px 3px 0 rgba(36,36,36,.3);transition:transform .12s ease,box-shadow .12s ease;white-space:nowrap}
+.cta:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 rgba(36,36,36,.34)}
+.cta:active{transform:translate(2px,2px);box-shadow:1px 1px 0 rgba(36,36,36,.3)}
+@media (max-width:640px){.nav{display:none}.brand .word{height:18px}.brand .mark{height:40px}}
 
-  .open{
-    flex:none;text-decoration:none;color:#fff;
-    font:700 11px 'Space Mono',monospace;letter-spacing:1px;
-    border:1px solid var(--line);border-radius:8px;padding:9px 13px;
-    transition:.15s;
-  }
-  .open:hover{background:rgba(255,255,255,.1)}
+/* ---------- buttons ---------- */
+.btn{display:inline-block;font:700 clamp(16px,1.7vw,20px)/1 'Passion One',Impact,sans-serif;letter-spacing:1px;padding:16px 26px;border-radius:8px;text-decoration:none;box-shadow:5px 5px 0 rgba(36,36,36,.35);transition:transform .12s ease,box-shadow .12s ease}
+.btn:hover{transform:translate(-1px,-1px);box-shadow:7px 7px 0 rgba(36,36,36,.4)}
+.btn:active{transform:translate(3px,3px);box-shadow:2px 2px 0 rgba(36,36,36,.3)}
+.btn--light{color:var(--red);background:#fff}
+.btn--dark{color:#fff;background:var(--ink)}
+.btn--red{color:#fff;background:var(--red)}
+.btn--outline{color:#fff;border:2.5px solid #fff;box-shadow:4px 4px 0 rgba(36,36,36,.3);transition:transform .12s ease,box-shadow .12s ease,background .15s ease,color .15s ease}
+.btn--outline:hover{background:#fff;color:var(--red)}
 
-  /* ---------- Stage ---------- */
-  .notice{
-    display:flex;align-items:center;justify-content:center;gap:9px;flex-wrap:wrap;
-    background:#F2EDE2;border-bottom:1px solid rgba(0,0,0,.08);
-    padding:9px 16px;text-align:center;
-  }
-  .notice .tag{
-    flex:none;font:700 9px 'Space Mono',monospace;letter-spacing:1.5px;color:#fff;
-    background:var(--red);padding:4px 9px;border-radius:5px;
-  }
-  .notice .msg{font:600 12px 'Archivo';color:#7a7266}
-  .notice .msg b{color:#4a443c}
+/* ---------- hero ---------- */
+.hero{position:relative;background:var(--red);overflow:hidden}
+.hero .wrap{padding-top:clamp(38px,5.5vw,84px);padding-bottom:clamp(38px,5.5vw,84px);display:flex;flex-wrap:wrap;gap:clamp(28px,4vw,60px);align-items:center;position:relative}
+.hero-copy{flex:1 1 400px;min-width:0}
+.eyebrow{font:700 clamp(10px,1.3vw,13px) 'Space Mono',monospace;letter-spacing:3px;color:rgba(255,255,255,.85);margin-bottom:16px}
+.hero h1{margin:0 0 18px;font:900 clamp(42px,6.6vw,88px)/.94 'Passion One',Impact,sans-serif;color:#fff;letter-spacing:.5px;text-wrap:balance}
+.hero p{margin:0 0 26px;font:400 clamp(15px,1.55vw,19px)/1.5 'Archivo';color:rgba(255,255,255,.92);max-width:520px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+.hero-photo{flex:1 1 360px;min-width:0;max-width:500px;margin:0 auto}
+.polaroid{background:var(--cream);padding:12px;border-radius:16px;transform:rotate(-1.6deg);box-shadow:0 22px 44px rgba(36,36,36,.38)}
+.polaroid img{width:100%;aspect-ratio:472/430;object-fit:cover;border-radius:9px}
+.polaroid figcaption{font:700 10px 'Space Mono',monospace;letter-spacing:1.5px;color:var(--brown);text-align:center;padding:10px 0 2px}
 
-  .caption{
-    text-align:center;padding:16px 16px 4px;
-    font:700 10px 'Space Mono',monospace;letter-spacing:2px;color:#8a8377;
-  }
-  .caption b{color:var(--red)}
-  .stagewrap{flex:1;padding:14px clamp(10px,3vw,32px) 40px;display:flex;justify-content:center}
-  .stage{position:relative;width:100%;max-width:1320px;transition:height .25s ease}
+/* ---------- location strip ---------- */
+.strip{background:var(--ink)}
+.strip .wrap{padding-top:14px;padding-bottom:14px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.strip .where{flex:1;min-width:200px}
+.label{font:700 9.5px 'Space Mono',monospace;letter-spacing:2px;color:rgba(255,255,255,.6)}
+.strip .addr{font:700 clamp(15px,1.9vw,21px) 'Space Mono',monospace;color:#fff;text-decoration:none}
+.strip .addr:hover{text-decoration:underline}
+.status{flex:none;display:inline-flex;align-items:center;gap:8px;font:700 12px 'Space Mono',monospace;color:var(--ink);background:#fff;padding:9px 13px;border-radius:7px}
+.status .dot{width:9px;height:9px;border-radius:50%;background:#9a9a9a;flex:none}
+.status.is-open .dot{background:#2EAD5B;box-shadow:0 0 0 3px rgba(46,173,91,.22)}
+.status.is-closed .dot{background:var(--red-hot)}
 
-  .device{
-    position:absolute;top:0;left:50%;transform:translateX(-50%);
-    opacity:0;pointer-events:none;transition:opacity .25s ease;
-  }
-  .device.active{opacity:1;pointer-events:auto;z-index:2}
+/* ---------- section headings ---------- */
+.section-head{text-align:center;margin-bottom:clamp(20px,2.6vw,30px)}
+.kicker{font:700 clamp(10px,1.2vw,12px) 'Space Mono',monospace;letter-spacing:2.5px;color:var(--red);margin-bottom:8px}
+.section-head h2{font:900 clamp(34px,5vw,64px)/1 'Passion One',Impact,sans-serif;letter-spacing:1px}
+.section-head p{margin:8px 0 0;font:400 clamp(13px,1.3vw,16px)/1.45 'Archivo'}
 
-  .chrome{
-    display:flex;align-items:center;gap:8px;
-    background:#dcdcdc;border:1px solid rgba(0,0,0,.14);border-bottom:none;
-    border-radius:11px 11px 0 0;padding:9px 13px;
-  }
-  .dot{width:11px;height:11px;border-radius:50%;flex:none}
-  .chrome .url{
-    flex:1;background:#fff;border-radius:6px;padding:5px 10px;
-    font:500 11px 'Space Mono',monospace;color:#8a8a8a;text-align:center;
-  }
-  .screen{
-    position:relative;overflow:hidden;background:#fff;
-    border:1px solid rgba(0,0,0,.16);
-  }
-  .screen iframe{position:absolute;top:0;left:0;border:0;transform-origin:top left;background:#fff}
+/* ---------- menu ---------- */
+.menu{background:var(--ink);color:#fff}
+.menu .wrap{padding-top:clamp(44px,5.5vw,88px);padding-bottom:clamp(44px,5.5vw,88px)}
+.menu .kicker{color:#ff8a80}
+.menu .section-head p{color:rgba(255,255,255,.6)}
+.plate-card{background:var(--red);border-radius:18px;overflow:hidden;display:flex;flex-wrap:wrap;box-shadow:0 18px 40px rgba(0,0,0,.35)}
+.plate-card .photo{flex:1 1 340px;min-width:0;min-height:300px;position:relative}
+.plate-card .photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.plate-card .body{flex:1 1 380px;min-width:0;padding:clamp(22px,3vw,40px)}
+.plate-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:14px}
+.tag{display:inline-flex;align-items:center;gap:8px;font:700 10px 'Space Mono',monospace;letter-spacing:1.5px;color:rgba(255,255,255,.9);margin-bottom:10px}
+.plate-card h3{font:900 clamp(32px,4vw,52px)/.95 'Passion One',Impact,sans-serif;letter-spacing:.5px}
+.price{flex:none;text-align:center;background:#fff;border-radius:12px;padding:12px 18px;box-shadow:4px 4px 0 rgba(36,36,36,.3)}
+.price b{display:block;font:700 clamp(26px,2.8vw,34px)/1 'Space Mono',monospace;color:var(--ink)}
+.price span{display:block;font:700 9.5px 'Space Mono',monospace;letter-spacing:1px;color:var(--red);margin-top:4px}
+.comes{list-style:none;margin:0;padding:0;border-top:2px dashed rgba(255,255,255,.3)}
+.comes li{display:flex;align-items:baseline;gap:12px;padding:13px 2px;border-bottom:1px dashed rgba(255,255,255,.25)}
+.comes li svg{flex:none;align-self:center}
+.comes .n{font:700 clamp(19px,2vw,24px)/1.1 'Passion One',Impact,sans-serif;letter-spacing:.5px}
+.comes .d{font:400 13.5px/1.4 'Archivo';color:rgba(255,255,255,.85)}
+.call-row{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;margin-top:clamp(14px,1.8vw,22px);background:var(--ink-2);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:18px clamp(18px,2.4vw,26px)}
+.call-row .t{font:900 clamp(22px,2.4vw,30px)/1 'Passion One',Impact,sans-serif;letter-spacing:.5px}
+.call-row p{margin:4px 0 0;font:400 13.5px/1.45 'Archivo';color:rgba(255,255,255,.6)}
+.menu-foot{border-top:2px dashed rgba(255,255,255,.22);margin-top:22px;padding-top:14px;font:400 clamp(10px,1.1vw,12px) 'Space Mono',monospace;letter-spacing:1.5px;color:rgba(255,255,255,.5);text-align:center}
+.menu-foot a{color:#fff}
 
-  /* desktop look */
-  .device.is-desktop .screen{border-radius:0 0 11px 11px;box-shadow:0 24px 60px rgba(0,0,0,.18)}
-  .device.is-desktop .chrome{display:flex}
+/* ---------- food gallery ---------- */
+.food{background:var(--cream)}
+.food .wrap{padding-top:clamp(44px,5.5vw,88px);padding-bottom:clamp(44px,5.5vw,88px)}
+.gallery{display:grid;grid-template-columns:repeat(6,1fr);gap:clamp(12px,1.6vw,20px)}
+.gallery figure{grid-column:span 2}
+.gallery .half{grid-column:span 3}
+.gallery .half img{aspect-ratio:16/10}
+.gallery figure{margin:0;position:relative;border-radius:14px;overflow:hidden;box-shadow:0 12px 28px rgba(36,36,36,.18);background:#d9d2c4}
+.gallery img{width:100%;height:100%;object-fit:cover;aspect-ratio:4/3}
+.gallery .wide{grid-column:span 4}
+.gallery .wide img{position:absolute;inset:0;aspect-ratio:auto}
+.gallery figcaption{position:absolute;left:12px;bottom:12px;font:700 clamp(10px,1.1vw,12px) 'Space Mono',monospace;letter-spacing:1px;color:#fff;background:var(--red);padding:7px 11px;border-radius:7px;box-shadow:0 6px 14px rgba(0,0,0,.3)}
+@media (max-width:760px){.gallery{grid-template-columns:1fr 1fr}.gallery figure,.gallery .half{grid-column:span 1}.gallery .wide{grid-column:span 2}.gallery .wide img{position:static;aspect-ratio:4/3}.gallery .half img{aspect-ratio:4/3}}
+@media (max-width:440px){.gallery{grid-template-columns:1fr}.gallery figure,.gallery .half,.gallery .wide{grid-column:auto}}
 
-  /* mobile look */
-  .device.is-mobile{background:#1a1a1a;border-radius:44px;padding:13px;box-shadow:0 28px 60px rgba(0,0,0,.3)}
-  .device.is-mobile .chrome{display:none}
-  .device.is-mobile .screen{border-radius:30px;border:0}
+/* ---------- find us ---------- */
+.find{background:var(--ink);color:#fff}
+.find .wrap{padding-top:clamp(40px,5vw,80px);padding-bottom:clamp(40px,5vw,80px)}
+.find-head{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.find-head h2{font:900 clamp(30px,4vw,52px)/1 'Passion One',Impact,sans-serif;letter-spacing:1px}
+.find .lede{margin:0 0 24px;font:400 clamp(13px,1.3vw,16px)/1.5 'Archivo';color:rgba(255,255,255,.6)}
+.find-grid{display:flex;flex-wrap:wrap;gap:clamp(18px,2.4vw,30px);align-items:stretch}
+.map-box{flex:2 1 460px;min-width:0;border:3px solid #fff;border-radius:14px;overflow:hidden;box-shadow:0 16px 34px rgba(0,0,0,.4);position:relative;z-index:0}
+#map{width:100%;height:100%;min-height:clamp(300px,42vw,480px);background:#EDE7DB}
+.side{flex:1 1 280px;min-width:0;display:flex;flex-direction:column;gap:14px}
+.card{border-radius:12px;padding:18px}
+.card--red{background:var(--red)}
+.card--dark{background:var(--ink-2)}
+.card .head{display:flex;align-items:center;gap:10px;margin-bottom:9px}
+.card .spot{font:700 clamp(15px,1.5vw,18px)/1.35 'Space Mono',monospace}
+.card .sub{font:400 12.5px/1.5 'Space Mono',monospace;color:rgba(255,255,255,.85);margin-top:4px}
+.card .dir{display:inline-block;margin-top:14px;font:700 12px 'Archivo';letter-spacing:1px;color:var(--red);background:#fff;padding:9px 13px;border-radius:7px;text-decoration:none;box-shadow:3px 3px 0 rgba(36,36,36,.3)}
+.card .dir:hover{transform:translate(-1px,-1px)}
+.hours-row{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.1)}
+.hours-row:last-child{border-bottom:0}
+.hours-row span:first-child{font:600 13.5px 'Archivo'}
+.hours-row span:last-child{font:700 12.5px 'Space Mono',monospace}
+.hours-row.is-today span:first-child::after{content:" · TODAY";font:700 9.5px 'Space Mono',monospace;letter-spacing:1px;color:#ff8a80}
+.closed{color:var(--red-hot)}
+.truck-card{border-radius:12px;overflow:hidden;position:relative;background:#111}
+.truck-card img{width:100%;aspect-ratio:472/300;object-fit:cover;object-position:center 60%}
+.truck-card span{position:absolute;left:10px;bottom:10px;font:700 10px 'Space Mono',monospace;letter-spacing:1px;color:var(--ink);background:#fff;padding:6px 10px;border-radius:6px}
 
-  .loading{
-    position:absolute;inset:0;display:grid;place-items:center;z-index:5;
-    background:#e9e6df;pointer-events:none;transition:opacity .3s;
-    font:700 10px 'Space Mono',monospace;letter-spacing:2px;color:#a59e91;
-  }
-  .loading.hide{opacity:0}
+/* ---------- follow + review ---------- */
+.social{background:var(--red);color:#fff;position:relative;overflow:hidden}
+.social .wrap{padding-top:clamp(44px,5.5vw,84px);padding-bottom:clamp(44px,5.5vw,84px);display:flex;flex-wrap:wrap;gap:clamp(24px,3vw,48px);position:relative}
+.social .col{flex:1 1 320px;min-width:0}
+.social h2{margin:0 0 12px;font:900 clamp(28px,3.6vw,48px)/1 'Passion One',Impact,sans-serif;letter-spacing:1px}
+.social p{margin:0 0 18px;font:400 clamp(14px,1.4vw,16px)/1.5 'Archivo';color:rgba(255,255,255,.9);max-width:440px}
+.phone-big{display:inline-block;font:700 clamp(26px,3.4vw,42px)/1 'Space Mono',monospace;color:#fff;text-decoration:none;border-bottom:3px solid rgba(255,255,255,.5);padding-bottom:4px;transition:border-color .15s ease}
+.phone-big:hover{border-bottom-color:#fff}
+.social .stack{display:flex;flex-direction:column;gap:11px;max-width:440px}
+.social .stack .btn{text-align:center}
+
+/* ---------- footer ---------- */
+.site-footer{background:var(--ink);color:#fff}
+.site-footer .wrap{padding-top:clamp(34px,4vw,56px);padding-bottom:clamp(34px,4vw,56px);display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;justify-content:space-between}
+.site-footer .about{flex:1 1 300px;min-width:0}
+.site-footer .logo{width:150px;height:auto;margin-bottom:14px}
+.site-footer p{margin:0;font:400 clamp(12px,1.3vw,14px)/1.5 'Archivo';color:rgba(255,255,255,.6);max-width:360px}
+.site-footer .contact{flex:none;text-align:right}
+.site-footer .contact a{display:block;font:700 clamp(13px,1.4vw,16px) 'Space Mono',monospace;color:#fff;text-decoration:none;margin-bottom:6px}
+.site-footer .small{font:400 10px 'Space Mono',monospace;letter-spacing:1px;color:rgba(255,255,255,.45);margin-top:4px}
+@media (max-width:560px){.site-footer .contact{text-align:left}}
+
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 </style>
 </head>
 <body>
 
-  <div class="bar">
-    <div class="brand">
-      <img src="assets/chicoco-logo-white.png" alt="Chicoco">
-      <div class="t"><b>CHICOCO</b><span>CONCEPT PREVIEW</span></div>
+<!-- ============ HEADER ============ -->
+<header class="site-header">
+  <div class="wrap">
+    <a href="#top" class="brand" aria-label="Chicoco home">
+      <img class="mark" src="assets/mark-white.png" alt="" width="350" height="305">
+      <img class="word" src="assets/wordmark-white.png" alt="Chicoco" width="700" height="155">
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="#menu">MENU</a>
+      <a href="#food">FOOD</a>
+      <a href="#find">FIND US</a>
+      <a href="#find">HOURS</a>
+    </nav>
+    <a href="tel:+14322023792" class="cta">CALL AHEAD</a>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <svg class="diamond" width="26" height="39" viewBox="0 0 12 18" style="top:40px;left:5%;transform:rotate(-16deg);opacity:.65" aria-hidden="true"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#fff"/></svg>
+  <svg class="diamond" width="16" height="24" viewBox="0 0 12 18" style="top:120px;left:12%;transform:rotate(22deg);opacity:.4" aria-hidden="true"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#fff"/></svg>
+  <svg class="diamond" width="30" height="45" viewBox="0 0 12 18" style="top:60px;right:6%;transform:rotate(14deg);opacity:.6" aria-hidden="true"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#fff"/></svg>
+  <svg class="diamond" width="14" height="21" viewBox="0 0 12 18" style="bottom:70px;right:16%;transform:rotate(-24deg);opacity:.45" aria-hidden="true"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#fff"/></svg>
+  <svg class="diamond" width="20" height="30" viewBox="0 0 12 18" style="bottom:40px;left:8%;transform:rotate(30deg);opacity:.5" aria-hidden="true"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#fff"/></svg>
+  <div class="wrap">
+    <div class="hero-copy">
+      <div class="eyebrow">ODESSA · TEXAS · CHARCOAL ROASTED</div>
+      <h1>WHOLE CHICKENS, ROASTED OVER CHARCOAL.</h1>
+      <p>Charcoal-roasted chicken with sides made fresh every day for lunch. Grab a plate Monday through Friday, or call ahead and we'll have it ready.</p>
+      <div class="hero-actions">
+        <a href="#menu" class="btn btn--light">SEE THE MENU</a>
+        <a href="#find" class="btn btn--dark">FIND THE TRUCK</a>
+      </div>
+    </div>
+    <figure class="hero-photo" style="margin-top:0;margin-bottom:0">
+      <div class="polaroid">
+        <img src="assets/img/chicken-spit.webp" alt="A whole chicken on the spit, roasted dark and crispy over charcoal" width="472" height="430" fetchpriority="high">
+        <figcaption>FRESH OFF THE SPIT</figcaption>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ LOCATION STRIP ============ -->
+<div class="strip">
+  <div class="wrap">
+    <svg width="14" height="21" viewBox="0 0 12 18" style="flex:none" aria-hidden="true"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#D63A31"/></svg>
+    <div class="where">
+      <div class="label">PARKED AT THE IN &amp; OUT STORE</div>
+      <a class="addr" href="https://www.google.com/maps/dir/?api=1&amp;destination=3226+W+10th+St,+Odessa,+TX+79763" target="_blank" rel="noopener">3226 W 10th St, Odessa</a>
+    </div>
+    <div class="status" id="status"><span class="dot"></span><span id="status-text">MON–FRI · 11 AM – 2:30 PM</span></div>
+  </div>
+</div>
+
+<!-- ============ MENU ============ -->
+<section id="menu" class="menu">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">MADE FRESH DAILY</div>
+      <h2>THE MENU</h2>
+      <p>One plate, done right. Everything cooked on the truck.</p>
     </div>
 
-    <div class="controls">
-      <div class="group">
-        <span class="lab">DESIGN</span>
-        <div class="seg" id="seg-design">
-          <button data-design="truck" aria-pressed="true">Truck Paint</button>
-          <button data-design="order" aria-pressed="false">Order Window</button>
+    <article class="plate-card">
+      <div class="photo">
+        <img src="assets/img/plate.webp" alt="The Chicoco plate: quarter chicken, fried rice with green onion, grilled elote and a cup of salsa" width="472" height="440" loading="lazy">
+      </div>
+      <div class="body">
+        <div class="plate-top">
+          <div>
+            <div class="tag"><svg width="10" height="15" viewBox="0 0 12 18" aria-hidden="true"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#fff"/></svg>THE SIGNATURE</div>
+            <h3>THE CHICOCO PLATE</h3>
+          </div>
+          <div class="price"><b>$14</b><span>PLATE</span></div>
+        </div>
+        <ul class="comes" aria-label="What comes on the plate">
+          <li><svg width="10" height="15" viewBox="0 0 12 18" aria-hidden="true"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#fff"/></svg><div><div class="n">1/4 CHICKEN</div><div class="d">Roasted whole over charcoal, juicy inside, crisp outside.</div></div></li>
+          <li><svg width="10" height="15" viewBox="0 0 12 18" aria-hidden="true"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#fff"/></svg><div><div class="n">FRIED RICE</div><div class="d">With green onion.</div></div></li>
+          <li><svg width="10" height="15" viewBox="0 0 12 18" aria-hidden="true"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#fff"/></svg><div><div class="n">ELOTE</div><div class="d">Corn on the cob, charred on the grill.</div></div></li>
+          <li><svg width="10" height="15" viewBox="0 0 12 18" aria-hidden="true"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#fff"/></svg><div><div class="n">HOUSE SALSA</div><div class="d">Our delicious salsa, on the side.</div></div></li>
+        </ul>
+      </div>
+    </article>
+
+    <div class="call-row">
+      <div>
+        <div class="t">CALL AHEAD, SKIP THE WAIT</div>
+        <p>Call before you head over and your chicken will be ready when you pull up.</p>
+      </div>
+      <a href="tel:+14322023792" class="btn btn--red">(432) 202-3792</a>
+    </div>
+
+    <div class="menu-foot">MORE PLATES ON THE WAY · <a href="https://www.facebook.com/people/Chicoco/61594992314435/" target="_blank" rel="noopener">FOLLOW ON FACEBOOK</a> FOR UPDATES</div>
+  </div>
+</section>
+
+<!-- ============ FOOD GALLERY ============ -->
+<section id="food" class="food on-light">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">STRAIGHT OFF THE COALS</div>
+      <h2>THE FOOD DOES THE TALKING</h2>
+    </div>
+    <div class="gallery">
+      <figure class="wide">
+        <img src="assets/img/elote-grill.webp" alt="A row of elote charring on the grill over hot coals" width="1280" height="960" loading="lazy">
+        <figcaption>ELOTE ON THE GRILL</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/img/chicken-coals.webp" alt="A golden chicken turning on the spit above white-hot charcoal" width="472" height="400" loading="lazy">
+        <figcaption>OVER REAL CHARCOAL</figcaption>
+      </figure>
+      <figure class="half">
+        <img src="assets/img/rotisserie-rows.webp" alt="Rows of whole chickens roasting together in the charcoal oven" width="472" height="350" loading="lazy">
+        <figcaption>WHOLE CHICKENS</figcaption>
+      </figure>
+      <figure class="half">
+        <img src="assets/img/corn-tray.webp" alt="A tray of grilled corn on the cob, fresh off the grill" width="768" height="560" loading="lazy">
+        <figcaption>FRESH CORN</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FIND US ============ -->
+<section id="find" class="find">
+  <div class="wrap">
+    <div class="find-head">
+      <svg width="14" height="21" viewBox="0 0 12 18" aria-hidden="true"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#D63A31"/></svg>
+      <h2>FIND US</h2>
+    </div>
+    <p class="lede">Weekday lunch, same spot every day. Look for the red truck and the roaster.</p>
+    <div class="find-grid">
+      <div class="map-box">
+        <div id="map" role="region" aria-label="Map showing Chicoco at 3226 W 10th St, Odessa"></div>
+      </div>
+      <div class="side">
+        <div class="card card--red">
+          <div class="head">
+            <svg width="13" height="20" viewBox="0 0 12 18" style="flex:none" aria-hidden="true"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#fff"/></svg>
+            <div class="label" style="color:rgba(255,255,255,.8)">IN &amp; OUT STORE</div>
+          </div>
+          <div class="spot">3226 W 10th St<br>Odessa, TX 79763</div>
+          <a class="dir" href="https://www.google.com/maps/dir/?api=1&amp;destination=3226+W+10th+St,+Odessa,+TX+79763" target="_blank" rel="noopener">GET DIRECTIONS ↗</a>
+        </div>
+        <div class="card card--dark" id="hours">
+          <div class="label" style="color:rgba(255,255,255,.5);margin-bottom:10px">HOURS</div>
+          <div class="hours-row" data-days="1,2,3,4,5"><span>Mon – Fri</span><span>11:00A – 2:30P</span></div>
+          <div class="hours-row" data-days="6"><span>Saturday</span><span class="closed">CLOSED</span></div>
+          <div class="hours-row" data-days="0"><span>Sunday</span><span class="closed">CLOSED</span></div>
+        </div>
+        <div class="truck-card">
+          <img src="assets/img/truck.webp" alt="The Chicoco food truck, red and black with white diamonds" width="472" height="372" loading="lazy">
+          <span>LOOK FOR THE RED TRUCK</span>
         </div>
       </div>
-      <div class="group">
-        <span class="lab">VIEW</span>
-        <div class="seg" id="seg-view">
-          <button data-view="desktop" aria-pressed="true">Desktop</button>
-          <button data-view="mobile" aria-pressed="false">Mobile</button>
-        </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CALL + FOLLOW ============ -->
+<section class="social">
+  <svg class="diamond" width="22" height="33" viewBox="0 0 12 18" style="top:30px;right:5%;transform:rotate(18deg);opacity:.5" aria-hidden="true"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#fff"/></svg>
+  <svg class="diamond" width="14" height="21" viewBox="0 0 12 18" style="bottom:36px;left:4%;transform:rotate(-20deg);opacity:.4" aria-hidden="true"><path d="M6 0 L11 9 L6 18 L1 9 Z" fill="#fff"/></svg>
+  <div class="wrap">
+    <div class="col">
+      <h2>CALL TO ORDER</h2>
+      <p>Call ahead and we'll have your roasted chicken ready, smelling of charcoal.</p>
+      <a class="phone-big" href="tel:+14322023792">(432) 202-3792</a>
+    </div>
+    <div class="col">
+      <h2>FOLLOW THE TRUCK</h2>
+      <p>New plates and updates go up on Facebook first. Liked your lunch? A review helps a lot.</p>
+      <div class="stack">
+        <a href="https://www.facebook.com/people/Chicoco/61594992314435/" class="btn btn--outline" target="_blank" rel="noopener">FACEBOOK</a>
+        <a href="https://www.facebook.com/people/Chicoco/61594992314435/?sk=reviews" class="btn btn--light" target="_blank" rel="noopener">LEAVE A REVIEW</a>
       </div>
     </div>
-
-    <a class="open" id="openFull" href="#" target="_blank" rel="noopener">OPEN FULL PAGE ↗</a>
   </div>
+</section>
 
-  <div class="notice">
-    <span class="tag">DRAFT</span>
-    <span class="msg">These are <b>draft concepts</b> — photos are placeholders, final images still to come.</span>
-  </div>
+</main>
 
-  <div class="caption">SHOWING <b id="capDesign">TRUCK PAINT</b> · <span id="capView">DESKTOP</span></div>
-
-  <div class="stagewrap">
-    <div class="stage" id="stage">
-      <div class="loading" id="loading">LOADING PREVIEW…</div>
-      <!-- devices injected by JS -->
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="about">
+      <img class="logo" src="assets/logo-white.png" alt="Chicoco Chicken Food Truck" width="746" height="526" loading="lazy">
+      <p>Charcoal-roasted whole chickens with sides made fresh daily for lunchtime. Odessa, Texas.</p>
+    </div>
+    <div class="contact">
+      <a href="tel:+14322023792">(432) 202-3792</a>
+      <div class="small">3226 W 10TH ST · ODESSA, TX 79763</div>
+      <div class="small">MON–FRI · 11 AM – 2:30 PM</div>
+      <div class="small" style="margin-top:12px;color:rgba(255,255,255,.35)">© 2026 CHICOCO</div>
     </div>
   </div>
+</footer>
 
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
 <script>
 (function () {
-  var PAGES = {
-    truck: { src: 'Chicoco%20-%20Truck%20Paint.dc.html',  name: 'Truck Paint',  bg:'#C4443C' },
-    order: { src: 'Chicoco%20-%20Order%20Window.dc.html', name: 'Order Window', bg:'#ffffff' }
-  };
-  // sensible starting heights until the real content is measured
-  var FALLBACK = {
-    truck: { desktop: 2600, mobile: 3900 },
-    order: { desktop: 2300, mobile: 3100 }
-  };
-  var LOGICAL = { desktop: 1280, mobile: 390 };
-  var BEZEL = 26; // mobile phone padding (13px * 2)
-
-  var state = { design: 'truck', view: 'desktop' };
-  var stage = document.getElementById('stage');
-  var loading = document.getElementById('loading');
-  var devices = {};
-
-  // ---- build the two device shells, both kept loaded so switching is instant ----
-  Object.keys(PAGES).forEach(function (key) {
-    var d = document.createElement('div');
-    d.className = 'device';
-    d.innerHTML =
-      '<div class="chrome">' +
-        '<span class="dot" style="background:#ff5f57"></span>' +
-        '<span class="dot" style="background:#febc2e"></span>' +
-        '<span class="dot" style="background:#28c840"></span>' +
-        '<div class="url">chicoco.com</div>' +
-      '</div>' +
-      '<div class="screen"><iframe title="' + PAGES[key].name + '" loading="eager"></iframe></div>';
-    stage.appendChild(d);
-    var iframe = d.querySelector('iframe');
-    iframe.src = PAGES[key].src;
-    devices[key] = { wrap: d, chrome: d.querySelector('.chrome'), screen: d.querySelector('.screen'), iframe: iframe, ready: false };
-    iframe.addEventListener('load', function () { devices[key].ready = true; hideLoaderMaybe(); layout(); });
-  });
-
-  function hideLoaderMaybe(){ if (devices[state.design] && devices[state.design].ready) loading.classList.add('hide'); }
-
-  function measure(iframe) {
-    try {
-      var doc = iframe.contentWindow.document;
-      var h = Math.max(doc.documentElement.scrollHeight, doc.body ? doc.body.scrollHeight : 0);
-      return h > 60 ? h : null;
-    } catch (e) { return null; }
+  // ---- open / closed badge, in Odessa time (America/Chicago) ----
+  var OPEN = 11 * 60, CLOSE = 14 * 60 + 30; // 11:00 AM – 2:30 PM, Mon–Fri
+  function odessaNow() {
+    var parts = new Intl.DateTimeFormat('en-US', { timeZone: 'America/Chicago', weekday: 'short', hour: 'numeric', minute: 'numeric', hour12: false }).formatToParts(new Date());
+    var o = {}; parts.forEach(function (p) { o[p.type] = p.value; });
+    var day = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].indexOf(o.weekday);
+    return { day: day, mins: (parseInt(o.hour, 10) % 24) * 60 + parseInt(o.minute, 10) };
   }
-
-  function sizeDevice(key) {
-    var dev = devices[key];
-    var view = state.view;
-    var logical = LOGICAL[view];
-    var pad = view === 'mobile' ? BEZEL : 0;
-    var avail = stage.clientWidth;
-    var scale = Math.min(1, avail / (logical + pad));
-    var h = measure(dev.iframe) || FALLBACK[key][view];
-
-    dev.wrap.className = 'device ' + (view === 'mobile' ? 'is-mobile' : 'is-desktop') + (key === state.design ? ' active' : '');
-
-    var screenW = logical * scale;
-    dev.screen.style.width = screenW + 'px';
-    dev.screen.style.height = (h * scale) + 'px';
-    dev.chrome.style.width = screenW + 'px';
-    dev.iframe.style.width = logical + 'px';
-    dev.iframe.style.height = h + 'px';
-    dev.iframe.style.transform = 'scale(' + scale + ')';
-    return dev.wrap;
-  }
-
-  function layout() {
-    // size both so the inactive one is measured & ready to reveal instantly
-    sizeDevice('truck');
-    sizeDevice('order');
-    // stage height follows the active device's real box
-    var active = devices[state.design].wrap;
-    requestAnimationFrame(function () {
-      stage.style.height = active.getBoundingClientRect().height + 'px';
+  function updateStatus() {
+    var el = document.getElementById('status'), txt = document.getElementById('status-text');
+    var now;
+    try { now = odessaNow(); } catch (e) { return; }
+    if (now.day < 0) return;
+    var weekday = now.day >= 1 && now.day <= 5;
+    var msg, open = false;
+    if (weekday && now.mins >= OPEN && now.mins < CLOSE) { open = true; msg = 'OPEN NOW · UNTIL 2:30 PM'; }
+    else if (weekday && now.mins < OPEN) msg = 'CLOSED · OPENS 11 AM';
+    else if (now.day >= 1 && now.day <= 4) msg = 'CLOSED · OPENS TOMORROW 11 AM';
+    else msg = 'CLOSED · OPENS MONDAY 11 AM';
+    el.className = 'status ' + (open ? 'is-open' : 'is-closed');
+    txt.textContent = msg;
+    document.querySelectorAll('.hours-row').forEach(function (r) {
+      r.classList.toggle('is-today', r.dataset.days.split(',').indexOf(String(now.day)) !== -1);
     });
   }
+  updateStatus();
+  setInterval(updateStatus, 60 * 1000);
 
-  function apply() {
-    document.getElementById('capDesign').textContent = PAGES[state.design].name.toUpperCase();
-    document.getElementById('capView').textContent = state.view.toUpperCase();
-    var full = document.getElementById('openFull');
-    full.href = PAGES[state.design].src;
-    // reflect pressed states
-    document.querySelectorAll('#seg-design button').forEach(function (b) {
-      b.setAttribute('aria-pressed', String(b.dataset.design === state.design));
-    });
-    document.querySelectorAll('#seg-view button').forEach(function (b) {
-      b.setAttribute('aria-pressed', String(b.dataset.view === state.view));
-    });
-    hideLoaderMaybe();
-    layout();
+  // ---- map ----
+  var SPOT = [31.84016, -102.40660];
+  function initMap(tries) {
+    if (!window.L) { if (tries < 100) setTimeout(function () { initMap(tries + 1); }, 100); return; }
+    var map = L.map('map', { zoomControl: true, scrollWheelZoom: false }).setView(SPOT, 15);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' }).addTo(map);
+    var icon = L.divIcon({ className: '', html: '<div style="width:18px;height:18px;background:#D63A31;border:2.5px solid #fff;transform:rotate(45deg);box-shadow:0 1px 6px rgba(0,0,0,.5)"></div>', iconSize: [18, 18], iconAnchor: [9, 9] });
+    L.marker(SPOT, { icon: icon, keyboard: false }).addTo(map)
+      .bindPopup('<b>Chicoco</b><br>In &amp; Out Store<br>3226 W 10th St');
+    setTimeout(function () { map.invalidateSize(); }, 250);
   }
-
-  document.getElementById('seg-design').addEventListener('click', function (e) {
-    var b = e.target.closest('button'); if (!b) return;
-    state.design = b.dataset.design; apply();
-  });
-  document.getElementById('seg-view').addEventListener('click', function (e) {
-    var b = e.target.closest('button'); if (!b) return;
-    state.view = b.dataset.view; apply();
-  });
-
-  var rafPending = false;
-  window.addEventListener('resize', function () {
-    if (rafPending) return; rafPending = true;
-    requestAnimationFrame(function () { rafPending = false; layout(); });
-  });
-
-  // keep correcting height as fonts / images / the map settle in
-  setInterval(layout, 900);
-
-  apply();
+  initMap(0);
 })();
 </script>
 </body>
